@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" data-nav-position="bottom">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Súper Smash Burger - Pedidos</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- SVG Icon Sprite -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol
+        id="icon-moon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </symbol>
+      <symbol
+        id="icon-sun"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </symbol>
+      <symbol
+        id="icon-settings"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="3"></circle>
+        <path
+          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+        ></path>
+      </symbol>
+      <symbol
+        id="icon-cart"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path
+          d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+        ></path>
+      </symbol>
+      <symbol
+        id="icon-x"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </symbol>
+      <symbol
+        id="icon-plus"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </symbol>
+      <symbol
+        id="icon-minus"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </symbol>
+      <symbol
+        id="icon-info"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </symbol>
+      <symbol
+        id="icon-store"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </symbol>
+      <symbol
+        id="icon-truck"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="1" y="3" width="15" height="13"></rect>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+      </symbol>
+      <symbol
+        id="icon-send"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </symbol>
+      <symbol
+        id="icon-check"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </symbol>
+      <symbol
+        id="icon-sparkles"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"
+        ></path>
+        <path
+          d="M5 19l.5 1.5L7 21l-1.5.5L5 23l-.5-1.5L3 21l1.5-.5L5 19z"
+        ></path>
+        <path
+          d="M19 11l.5 1.5L21 13l-1.5.5L19 15l-.5-1.5L17 13l1.5-.5L19 11z"
+        ></path>
+      </symbol>
+      <symbol
+        id="icon-home"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </symbol>
+      <symbol
+        id="icon-grid"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </symbol>
+    </svg>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <button class="header-btn" id="themeToggle" title="Cambiar tema">
+            <svg class="icon" id="themeIcon"><use href="#icon-moon" /></svg>
+          </button>
+          <button
+            class="header-btn desktop-only"
+            id="settingsToggle"
+            title="Configuración"
+          >
+            <svg class="icon"><use href="#icon-settings" /></svg>
+          </button>
+        </div>
+        <div class="header-center">
+          <img src="logo.svg" alt="Logo" class="logo-img" id="logoImg" />
+          <span class="logo-text" id="logoText">SSB</span>
+        </div>
+        <div class="header-right">
+          <button class="cart-badge" id="cartToggle">
+            <svg class="icon"><use href="#icon-cart" /></svg>
+            <span class="badge" id="cartCount">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Category Tabs (desktop only) -->
+      <div class="category-tabs desktop-category-tabs" id="desktopCategoryTabs">
+        <button class="category-tab active" data-category="all">Todos</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Products will be loaded here -->
+      </div>
+    </main>
+
+    <!-- Filter Bar (above nav) -->
+    <div class="filter-bar" id="filterBar">
+      <div class="category-tabs" id="categoryTabs">
+        <button class="category-tab active" data-category="all">Todos</button>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottomNav">
+      <button class="nav-item nav-logo" data-nav="home">
+        <img src="logo.svg" alt="Logo" class="nav-logo-img" id="navLogoImg" />
+      </button>
+      <button class="nav-item" data-nav="theme">
+        <svg class="icon" id="navThemeIcon"><use href="#icon-moon" /></svg>
+      </button>
+      <button class="nav-item" data-nav="cart">
+        <svg class="icon"><use href="#icon-cart" /></svg>
+        <span class="nav-badge" id="navCartCount">0</span>
+      </button>
+      <button class="nav-item" data-nav="settings">
+        <svg class="icon"><use href="#icon-settings" /></svg>
+      </button>
+    </nav>
+
+    <!-- Categories Modal -->
+    <div class="modal-overlay" id="categoriesModal">
+      <div class="modal categories-modal">
+        <div class="modal-header">
+          <h3>Categorías</h3>
+          <button class="modal-close" id="categoriesClose">
+            <svg class="icon"><use href="#icon-x" /></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="categories-list" id="categoriesList">
+            <!-- Categories will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Panel -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-panel" id="cartPanel">
+      <div class="cart-header">
+        <h2>Tu Pedido</h2>
+        <button class="cart-close" id="cartClose">
+          <svg class="icon"><use href="#icon-x" /></svg>
+        </button>
+      </div>
+
+      <div class="cart-items" id="cartItems">
+        <p class="cart-empty">Tu carrito está vacío</p>
+      </div>
+
+      <div class="cart-footer">
+        <!-- Delivery Toggle -->
+        <div class="delivery-toggle">
+          <label class="delivery-option">
+            <input type="radio" name="delivery" value="pickup" checked />
+            <span class="delivery-label">
+              <svg class="icon delivery-icon"><use href="#icon-store" /></svg>
+              <span>Retiro</span>
+            </span>
+          </label>
+          <label class="delivery-option">
+            <input type="radio" name="delivery" value="delivery" />
+            <span class="delivery-label">
+              <svg class="icon delivery-icon"><use href="#icon-truck" /></svg>
+              <span>Delivery</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal">$0</span>
+          </div>
+          <div class="summary-row" id="shippingRow" style="display: none">
+            <span>Envío</span>
+            <span id="shippingCost">$0</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span id="total">$0</span>
+          </div>
+        </div>
+
+        <button class="whatsapp-btn" id="whatsappBtn" disabled>
+          <svg class="icon"><use href="#icon-send" /></svg>
+          <span>Enviar por WhatsApp</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Customization Modal -->
+    <div class="modal-overlay" id="customizeModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalProductName">Producto</h3>
+          <button class="modal-close" id="modalClose">
+            <svg class="icon"><use href="#icon-x" /></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-price" id="modalProductPrice">$0</p>
+          <p class="modal-description" id="modalProductDescription"></p>
+          <div
+            class="ingredients-section"
+            id="ingredientsSection"
+            style="display: none"
+          >
+            <h4>¿Querés quitar algo?</h4>
+            <div class="ingredients-list" id="ingredientsList">
+              <!-- Ingredients will be loaded here -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="modalCancel">Cancelar</button>
+          <button class="btn-add" id="modalAdd">
+            <svg class="icon"><use href="#icon-plus" /></svg>
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+      <div class="modal settings-modal">
+        <div class="modal-header">
+          <h3>Configuración</h3>
+          <button class="modal-close" id="settingsClose">
+            <svg class="icon"><use href="#icon-x" /></svg>
+          </button>
+        </div>
+        <div class="modal-body settings-body">
+          <!-- Theme Toggle -->
+          <div class="settings-section">
+            <h4>Tema</h4>
+            <div class="theme-selector">
+              <button class="theme-option" data-theme="light">
+                <svg class="icon"><use href="#icon-sun" /></svg>
+                <span>Claro</span>
+              </button>
+              <button class="theme-option" data-theme="dark">
+                <svg class="icon"><use href="#icon-moon" /></svg>
+                <span>Oscuro</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Color Customization -->
+          <div class="settings-section">
+            <h4>Colores</h4>
+            <div class="color-options">
+              <div class="color-option">
+                <label>Principal</label>
+                <input type="color" id="colorPrimary" value="#f97316" />
+              </div>
+              <div class="color-option">
+                <label>Secundario</label>
+                <input type="color" id="colorSecondary" value="#fbbf24" />
+              </div>
+              <div class="color-option">
+                <label>Fondo</label>
+                <input type="color" id="colorBackground" value="#fefce8" />
+              </div>
+              <div class="color-option">
+                <label>Texto</label>
+                <input type="color" id="colorText" value="#1c1917" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Behavior -->
+          <div class="settings-section">
+            <h4>Comportamiento</h4>
+            <label class="settings-toggle">
+              <input type="checkbox" id="autoOpenCart" checked />
+              <span class="toggle-slider"></span>
+              <span class="toggle-label">Abrir carrito al agregar</span>
+            </label>
+            <label class="settings-toggle">
+              <input type="checkbox" id="tapToAddCart" checked />
+              <span class="toggle-slider"></span>
+              <span class="toggle-label">Tocar para agregar</span>
+            </label>
+            <label class="settings-toggle">
+              <input type="checkbox" id="navOnTop" />
+              <span class="toggle-slider"></span>
+              <span class="toggle-label">Barra de navegación arriba</span>
+            </label>
+          </div>
+
+          <!-- Reset Colors -->
+          <div class="settings-section">
+            <button class="btn-reset" id="resetColors">
+              Restablecer colores
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

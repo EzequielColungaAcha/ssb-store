@@ -1,0 +1,59 @@
+[
+  {
+    "id": "example-1",
+    "name": "Smash Burger Simple",
+    "description": "Medallón de carne smash, queso cheddar fundido, cebolla caramelizada y nuestra salsa especial.",
+    "price": 1500,
+    "category": "hamburguesas",
+    "ingredients": [
+      { "id": "ing-1", "name": "Tomate" },
+      { "id": "ing-2", "name": "Lechuga" },
+      { "id": "ing-3", "name": "Cebolla" }
+    ]
+  },
+  {
+    "id": "example-2",
+    "name": "Smash Burger Doble",
+    "description": "Doble medallón de carne smash, doble queso cheddar, cebolla caramelizada, pepinillos y salsa especial.",
+    "price": 2200,
+    "category": "hamburguesas",
+    "ingredients": [
+      { "id": "ing-1", "name": "Tomate" },
+      { "id": "ing-2", "name": "Lechuga" },
+      { "id": "ing-3", "name": "Cebolla" },
+      { "id": "ing-4", "name": "Pepinillos" }
+    ]
+  },
+  {
+    "id": "example-3",
+    "name": "Papas Fritas",
+    "description": "Papas fritas crujientes con sal marina.",
+    "price": 800,
+    "category": "papas fritas",
+    "ingredients": []
+  },
+  {
+    "id": "example-4",
+    "name": "Papas con Cheddar",
+    "description": "Papas fritas cubiertas con queso cheddar fundido y panceta crocante.",
+    "price": 1100,
+    "category": "papas fritas",
+    "ingredients": []
+  },
+  {
+    "id": "example-5",
+    "name": "Coca Cola 500ml",
+    "description": "Coca Cola original bien fría.",
+    "price": 600,
+    "category": "bebidas",
+    "ingredients": []
+  },
+  {
+    "id": "example-6",
+    "name": "Agua Mineral",
+    "description": "Agua mineral sin gas 500ml.",
+    "price": 400,
+    "category": "bebidas",
+    "ingredients": []
+  }
+]

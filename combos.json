@@ -91,7 +91,7 @@
     "name": "Combo Bacon Jam",
     "description": "SSB Bacon Jam (Pan de papa, doble paty, doble queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 13000,
+    "fixed_price": 14000,
     "slots": [
       {
         "id": "b3876a6f-5407-4fa3-a481-fbdff7a7a5d9",

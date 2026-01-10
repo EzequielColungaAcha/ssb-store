@@ -518,7 +518,8 @@ function updateAddressVisibility() {
 // ===== LOAD PRODUCTS =====
 async function loadProducts() {
   try {
-    const response = await fetch('products.json');
+    // Add cache-busting timestamp to prevent stale data
+    const response = await fetch(`products.json?t=${Date.now()}`);
     if (!response.ok) throw new Error('Failed to load products');
     products = await response.json();
     renderCategories();
@@ -538,7 +539,8 @@ async function loadProducts() {
 // ===== LOAD COMBOS =====
 async function loadCombos() {
   try {
-    const response = await fetch('combos.json');
+    // Add cache-busting timestamp to prevent stale data
+    const response = await fetch(`combos.json?t=${Date.now()}`);
     if (!response.ok) {
       // Combos file might not exist, that's ok
       combos = [];

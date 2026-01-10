@@ -5,6 +5,13 @@ const CONFIG = {
   freeShippingThreshold: 45000,
   storeName: 'Súper Smash Burger',
   currency: '$',
+  // Operating hours configuration
+  operatingHours: {
+    enabled: true,
+    startHour: 20, // 8 PM
+    endHour: 24, // Midnight (use 24 for midnight, or 0 for next day)
+    timezone: 'America/Argentina/Buenos_Aires',
+  },
 };
 
 // Default colors for each theme
@@ -111,6 +118,77 @@ function formatPrice(price) {
 
 function generateCartItemId() {
   return 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// ===== OPERATING HOURS =====
+function isWithinOperatingHours() {
+  if (!CONFIG.operatingHours.enabled) {
+    return true;
+  }
+
+  const { startHour, endHour, timezone } = CONFIG.operatingHours;
+
+  // Get current time in Argentina timezone
+  const now = new Date();
+  const argentinaTime = new Date(
+    now.toLocaleString('en-US', { timeZone: timezone })
+  );
+  const currentHour = argentinaTime.getHours();
+
+  // Handle cases like 20:00 - 24:00 (endHour = 24 means midnight)
+  if (endHour === 24 || endHour === 0) {
+    return currentHour >= startHour;
+  }
+
+  // Handle normal range (e.g., 10:00 - 22:00)
+  if (startHour < endHour) {
+    return currentHour >= startHour && currentHour < endHour;
+  }
+
+  // Handle overnight range (e.g., 20:00 - 02:00)
+  return currentHour >= startHour || currentHour < endHour;
+}
+
+function formatOperatingHours() {
+  const { startHour, endHour } = CONFIG.operatingHours;
+  const formatHour = (h) => {
+    if (h === 24 || h === 0) return '00:00';
+    return `${h.toString().padStart(2, '0')}:00`;
+  };
+  return `${formatHour(startHour)} a ${formatHour(endHour)}`;
+}
+
+function updateWhatsAppButtonState() {
+  if (!CONFIG.operatingHours.enabled) {
+    return;
+  }
+
+  const isOpen = isWithinOperatingHours();
+  const btn = elements.whatsappBtn;
+
+  if (!btn) return;
+
+  if (isOpen) {
+    btn.disabled = false;
+    btn.classList.remove('disabled');
+    btn.title = '';
+    // Remove any closed message
+    const closedMsg = document.getElementById('closedMessage');
+    if (closedMsg) closedMsg.remove();
+  } else {
+    btn.disabled = true;
+    btn.classList.add('disabled');
+    btn.title = `Pedidos disponibles de ${formatOperatingHours()}`;
+
+    // Add closed message if not exists
+    if (!document.getElementById('closedMessage')) {
+      const msg = document.createElement('div');
+      msg.id = 'closedMessage';
+      msg.className = 'closed-message';
+      msg.innerHTML = `<svg class="icon"><use href="#icon-x"/></svg> Pedidos disponibles de ${formatOperatingHours()}`;
+      btn.parentNode.insertBefore(msg, btn);
+    }
+  }
 }
 
 // Toast state for stacking
@@ -1461,6 +1539,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderProducts();
   initEventListeners();
   updateCartCount();
+
+  // Check operating hours and update WhatsApp button state
+  updateWhatsAppButtonState();
+  // Check every minute
+  setInterval(updateWhatsAppButtonState, 60000);
 });
 
 // Make functions available globally for inline onclick handlers

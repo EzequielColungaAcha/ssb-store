@@ -25,8 +25,11 @@ const DEFAULT_COLORS = {
 
 // ===== STATE =====
 let products = [];
+let combos = [];
 let cart = [];
 let currentProduct = null;
+let currentCombo = null;
+let comboSelections = [];
 let removedIngredients = [];
 let currentCategory = 'all';
 let settings = {
@@ -56,6 +59,8 @@ const elements = {
   shippingCost: document.getElementById('shippingCost'),
   total: document.getElementById('total'),
   whatsappBtn: document.getElementById('whatsappBtn'),
+  addressInput: document.getElementById('addressInput'),
+  deliveryAddress: document.getElementById('deliveryAddress'),
   customizeModal: document.getElementById('customizeModal'),
   modalProductName: document.getElementById('modalProductName'),
   modalProductPrice: document.getElementById('modalProductPrice'),
@@ -88,6 +93,15 @@ const elements = {
   navThemeIcon: document.getElementById('navThemeIcon'),
   navLogoImg: document.getElementById('navLogoImg'),
   desktopCategoryTabs: document.getElementById('desktopCategoryTabs'),
+  // Combo modal elements
+  comboModal: document.getElementById('comboModal'),
+  comboModalName: document.getElementById('comboModalName'),
+  comboModalPrice: document.getElementById('comboModalPrice'),
+  comboModalDescription: document.getElementById('comboModalDescription'),
+  comboSlots: document.getElementById('comboSlots'),
+  comboModalClose: document.getElementById('comboModalClose'),
+  comboModalCancel: document.getElementById('comboModalCancel'),
+  comboModalAdd: document.getElementById('comboModalAdd'),
 };
 
 // ===== UTILITY FUNCTIONS =====
@@ -369,6 +383,23 @@ function initLogo() {
   }
 }
 
+// ===== ADDRESS =====
+function loadAddress() {
+  const savedAddress = localStorage.getItem('deliveryAddress');
+  if (savedAddress && elements.deliveryAddress) {
+    elements.deliveryAddress.value = savedAddress;
+  }
+}
+
+function updateAddressVisibility() {
+  const isDelivery =
+    document.querySelector('input[name="delivery"]:checked')?.value ===
+    'delivery';
+  if (elements.addressInput) {
+    elements.addressInput.style.display = isDelivery ? 'block' : 'none';
+  }
+}
+
 // ===== LOAD PRODUCTS =====
 async function loadProducts() {
   try {
@@ -389,15 +420,57 @@ async function loadProducts() {
   }
 }
 
+// ===== LOAD COMBOS =====
+async function loadCombos() {
+  try {
+    const response = await fetch('combos.json');
+    if (!response.ok) {
+      // Combos file might not exist, that's ok
+      combos = [];
+      return;
+    }
+    combos = await response.json();
+    // Re-render categories to include Combos if we have any
+    if (combos.length > 0) {
+      renderCategories();
+      renderCategoriesModal();
+    }
+  } catch (error) {
+    console.error('Error loading combos:', error);
+    combos = [];
+  }
+}
+
+// Category display order
+const CATEGORY_ORDER = ['combos', 'hamburguesas', 'papas fritas', 'bebidas'];
+
+function sortCategories(categories) {
+  return categories.sort((a, b) => {
+    const aIndex = CATEGORY_ORDER.indexOf(a.toLowerCase());
+    const bIndex = CATEGORY_ORDER.indexOf(b.toLowerCase());
+    // If not in order list, put at end
+    const aOrder = aIndex === -1 ? 999 : aIndex;
+    const bOrder = bIndex === -1 ? 999 : bIndex;
+    return aOrder - bOrder;
+  });
+}
+
 // ===== RENDER CATEGORIES =====
 function renderCategories() {
   const categories = [...new Set(products.map((p) => p.category))];
+
+  // Add Combos category if we have combos
+  const allCategories =
+    combos.length > 0 ? ['combos', ...categories] : categories;
+
+  // Sort categories by defined order
+  const sortedCategories = sortCategories([...allCategories]);
 
   const tabsHtml = `
     <button class="category-tab ${
       currentCategory === 'all' ? 'active' : ''
     }" data-category="all">Todos</button>
-    ${categories
+    ${sortedCategories
       .map(
         (cat) => `
       <button class="category-tab ${
@@ -432,13 +505,20 @@ function renderCategories() {
 function renderCategoriesModal() {
   const categories = [...new Set(products.map((p) => p.category))];
 
+  // Add Combos category if we have combos
+  const allCategories =
+    combos.length > 0 ? ['combos', ...categories] : categories;
+
+  // Sort categories by defined order
+  const sortedCategories = sortCategories([...allCategories]);
+
   elements.categoriesList.innerHTML = `
     <button class="category-list-item ${
       currentCategory === 'all' ? 'active' : ''
     }" data-category="all">
       Todos los productos
     </button>
-    ${categories
+    ${sortedCategories
       .map(
         (cat) => `
       <button class="category-list-item ${
@@ -494,14 +574,34 @@ function capitalizeFirst(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+// Sort products by category order
+function sortProductsByCategory(productList) {
+  return [...productList].sort((a, b) => {
+    const aIndex = CATEGORY_ORDER.indexOf(a.category.toLowerCase());
+    const bIndex = CATEGORY_ORDER.indexOf(b.category.toLowerCase());
+    const aOrder = aIndex === -1 ? 999 : aIndex;
+    const bOrder = bIndex === -1 ? 999 : bIndex;
+    return aOrder - bOrder;
+  });
+}
+
 // ===== RENDER PRODUCTS =====
 function renderProducts(category = currentCategory) {
+  // Handle combos category
+  if (category === 'combos') {
+    renderCombosGrid();
+    return;
+  }
+
   const filtered =
     category === 'all'
-      ? products
+      ? sortProductsByCategory(products)
       : products.filter((p) => p.category === category);
 
-  if (filtered.length === 0) {
+  // For 'all' category, also include combos if any
+  const includeCombos = category === 'all' && combos.length > 0;
+
+  if (filtered.length === 0 && !includeCombos) {
     elements.productsGrid.innerHTML =
       '<div class="loading">No hay productos en esta categoría</div>';
     return;
@@ -513,7 +613,33 @@ function renderProducts(category = currentCategory) {
     ? 'Ver detalles'
     : 'Agregar al carrito';
 
-  elements.productsGrid.innerHTML = filtered
+  let html = '';
+
+  // Add combos first when showing 'all'
+  if (includeCombos) {
+    html += combos
+      .map(
+        (combo) => `
+      <div class="product-card combo-card" data-combo-id="${combo.id}">
+        <div class="combo-badge">COMBO</div>
+        <div class="product-name">${combo.name}</div>
+        ${
+          combo.description
+            ? `<div class="product-description">${combo.description}</div>`
+            : ''
+        }
+        <div class="product-price">${getComboDisplayPrice(combo)}</div>
+        <div class="product-customize"><svg class="icon"><use href="#icon-layers"/></svg> ${
+          combo.slots.length
+        } productos</div>
+      </div>
+    `
+      )
+      .join('');
+  }
+
+  // Add products (already sorted by category)
+  html += filtered
     .map(
       (product) => `
     <div class="product-card" data-id="${product.id}">
@@ -539,37 +665,128 @@ function renderProducts(category = currentCategory) {
     )
     .join('');
 
-  // Add event listeners
-  elements.productsGrid.querySelectorAll('.product-card').forEach((card) => {
-    const productId = card.dataset.id;
-    const product = products.find((p) => p.id === productId);
+  elements.productsGrid.innerHTML = html;
 
-    // Action button click
-    const actionBtn = card.querySelector('.product-action-btn');
-    actionBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (product) {
-        if (settings.tapToAddCart) {
-          openCustomizeModal(product);
-        } else {
-          quickAddToCart(product);
+  // Add event listeners for products
+  elements.productsGrid
+    .querySelectorAll('.product-card:not(.combo-card)')
+    .forEach((card) => {
+      const productId = card.dataset.id;
+      const product = products.find((p) => p.id === productId);
+
+      // Action button click
+      const actionBtn = card.querySelector('.product-action-btn');
+      actionBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (product) {
+          if (settings.tapToAddCart) {
+            openCustomizeModal(product);
+          } else {
+            quickAddToCart(product);
+          }
         }
-      }
+      });
+
+      // Card click
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.product-action-btn')) return;
+
+        if (product) {
+          if (settings.tapToAddCart) {
+            quickAddToCart(product);
+          } else {
+            openCustomizeModal(product);
+          }
+        }
+      });
     });
 
-    // Card click
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('.product-action-btn')) return;
+  // Add event listeners for combos
+  elements.productsGrid.querySelectorAll('.combo-card').forEach((card) => {
+    const comboId = card.dataset.comboId;
+    const combo = combos.find((c) => c.id === comboId);
 
-      if (product) {
-        if (settings.tapToAddCart) {
-          quickAddToCart(product);
-        } else {
-          openCustomizeModal(product);
-        }
+    card.addEventListener('click', () => {
+      if (combo) {
+        openComboModal(combo);
       }
     });
   });
+}
+
+// Render only combos
+function renderCombosGrid() {
+  if (combos.length === 0) {
+    elements.productsGrid.innerHTML =
+      '<div class="loading">No hay combos disponibles</div>';
+    return;
+  }
+
+  elements.productsGrid.innerHTML = combos
+    .map(
+      (combo) => `
+    <div class="product-card combo-card" data-combo-id="${combo.id}">
+      <div class="combo-badge">COMBO</div>
+      <div class="product-name">${combo.name}</div>
+      ${
+        combo.description
+          ? `<div class="product-description">${combo.description}</div>`
+          : ''
+      }
+      <div class="product-price">${getComboDisplayPrice(combo)}</div>
+      <div class="product-customize"><svg class="icon"><use href="#icon-layers"/></svg> ${
+        combo.slots.length
+      } productos</div>
+    </div>
+  `
+    )
+    .join('');
+
+  // Add event listeners
+  elements.productsGrid.querySelectorAll('.combo-card').forEach((card) => {
+    const comboId = card.dataset.comboId;
+    const combo = combos.find((c) => c.id === comboId);
+
+    card.addEventListener('click', () => {
+      if (combo) {
+        openComboModal(combo);
+      }
+    });
+  });
+}
+
+// Get display price for combo
+function getComboDisplayPrice(combo) {
+  if (combo.price_type === 'fixed') {
+    return formatPrice(combo.fixed_price || 0);
+  }
+  // For calculated, show discount
+  if (combo.discount_type === 'percentage') {
+    return `-${combo.discount_value}%`;
+  }
+  return `-${formatPrice(combo.discount_value || 0)}`;
+}
+
+// Calculate actual combo price based on selections
+function calculateComboPrice(combo, selections) {
+  if (combo.price_type === 'fixed') {
+    return combo.fixed_price || 0;
+  }
+
+  // Calculate sum of selected products
+  let total = 0;
+  for (const selection of selections) {
+    total += selection.productPrice || 0;
+  }
+
+  // Apply discount
+  if (combo.discount_type === 'percentage' && combo.discount_value) {
+    total = total * (1 - combo.discount_value / 100);
+  } else if (combo.discount_type === 'fixed' && combo.discount_value) {
+    total = Math.max(0, total - combo.discount_value);
+  }
+
+  return Math.round(total);
 }
 
 // Quick add without modal
@@ -635,6 +852,193 @@ function closeCustomizeModal() {
   elements.customizeModal.classList.remove('active');
   currentProduct = null;
   removedIngredients = [];
+}
+
+// ===== COMBO MODAL =====
+function openComboModal(combo) {
+  currentCombo = combo;
+
+  // Initialize selections with defaults
+  comboSelections = [];
+  for (const slot of combo.slots) {
+    const defaultProduct = slot.products.find(
+      (p) => p.id === slot.default_product_id
+    );
+    for (let i = 0; i < slot.quantity; i++) {
+      comboSelections.push({
+        slotId: slot.id,
+        slotName: slot.name,
+        productId: defaultProduct?.id || slot.products[0]?.id || '',
+        productName: defaultProduct?.name || slot.products[0]?.name || '',
+        productPrice: defaultProduct?.price || slot.products[0]?.price || 0,
+        removedIngredients: [],
+      });
+    }
+  }
+
+  renderComboModal();
+  elements.comboModal.classList.add('active');
+}
+
+function renderComboModal() {
+  if (!currentCombo) return;
+
+  const price = calculateComboPrice(currentCombo, comboSelections);
+
+  elements.comboModalName.textContent = currentCombo.name;
+  elements.comboModalPrice.textContent = formatPrice(price);
+  elements.comboModalDescription.textContent = currentCombo.description || '';
+
+  // Render slots
+  let slotsHtml = '';
+  let selectionIndex = 0;
+
+  for (const slot of currentCombo.slots) {
+    for (let i = 0; i < slot.quantity; i++) {
+      const selection = comboSelections[selectionIndex];
+      const selectedProduct = slot.products.find(
+        (p) => p.id === selection?.productId
+      );
+
+      slotsHtml += `
+        <div class="combo-slot" data-slot-id="${
+          slot.id
+        }" data-index="${selectionIndex}">
+          <div class="combo-slot-header">
+            <span class="combo-slot-name">${slot.name}${
+        slot.quantity > 1 ? ` (${i + 1})` : ''
+      }</span>
+          </div>
+          ${
+            slot.is_dynamic && slot.products.length > 1
+              ? `
+            <select class="combo-slot-select" data-selection-index="${selectionIndex}">
+              ${slot.products
+                .map(
+                  (p) => `
+                <option value="${p.id}" ${
+                    p.id === selection?.productId ? 'selected' : ''
+                  }>
+                  ${p.name} - ${formatPrice(p.price)}
+                </option>
+              `
+                )
+                .join('')}
+            </select>
+          `
+              : `<div class="combo-slot-product">${
+                  selection?.productName || ''
+                }</div>`
+          }
+          ${
+            selectedProduct?.ingredients?.length > 0
+              ? `
+            <div class="combo-slot-ingredients">
+              <div class="combo-ingredients-label">Quitar:</div>
+              ${selectedProduct.ingredients
+                .map(
+                  (ing) => `
+                <button class="combo-ingredient-btn ${
+                  selection?.removedIngredients?.includes(ing.name)
+                    ? 'removed'
+                    : ''
+                }" 
+                        data-selection-index="${selectionIndex}" 
+                        data-ingredient="${ing.name}">
+                  ${ing.name}
+                </button>
+              `
+                )
+                .join('')}
+            </div>
+          `
+              : ''
+          }
+        </div>
+      `;
+      selectionIndex++;
+    }
+  }
+
+  elements.comboSlots.innerHTML = slotsHtml;
+
+  // Add event listeners for selects
+  elements.comboSlots
+    .querySelectorAll('.combo-slot-select')
+    .forEach((select) => {
+      select.addEventListener('change', (e) => {
+        const idx = parseInt(e.target.dataset.selectionIndex);
+        const productId = e.target.value;
+
+        // Find the slot and product
+        const selection = comboSelections[idx];
+        const slot = currentCombo.slots.find((s) => s.id === selection.slotId);
+        const product = slot?.products.find((p) => p.id === productId);
+
+        if (product) {
+          comboSelections[idx] = {
+            ...selection,
+            productId: product.id,
+            productName: product.name,
+            productPrice: product.price,
+            removedIngredients: [],
+          };
+          renderComboModal();
+        }
+      });
+    });
+
+  // Add event listeners for ingredient buttons
+  elements.comboSlots
+    .querySelectorAll('.combo-ingredient-btn')
+    .forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.dataset.selectionIndex);
+        const ingredientName = btn.dataset.ingredient;
+
+        const selection = comboSelections[idx];
+        if (selection.removedIngredients.includes(ingredientName)) {
+          selection.removedIngredients = selection.removedIngredients.filter(
+            (i) => i !== ingredientName
+          );
+        } else {
+          selection.removedIngredients.push(ingredientName);
+        }
+        renderComboModal();
+      });
+    });
+}
+
+function closeComboModal() {
+  elements.comboModal.classList.remove('active');
+  currentCombo = null;
+  comboSelections = [];
+}
+
+function addComboToCart() {
+  if (!currentCombo) return;
+
+  const price = calculateComboPrice(currentCombo, comboSelections);
+
+  const comboCartItem = {
+    id: generateCartItemId(),
+    name: currentCombo.name,
+    price: price,
+    quantity: 1,
+    isCombo: true,
+    comboId: currentCombo.id,
+    comboSelections: [...comboSelections],
+  };
+
+  cart.push(comboCartItem);
+  updateCart();
+  closeComboModal();
+
+  if (settings.autoOpenCart) {
+    openCart();
+  } else {
+    showToast(`${currentCombo.name} agregado`);
+  }
 }
 
 function addToCartFromModal() {
@@ -725,11 +1129,38 @@ function renderCartItems() {
   elements.cartItems.innerHTML = cart
     .map(
       (item) => `
-    <div class="cart-item">
+    <div class="cart-item ${item.isCombo ? 'cart-item-combo' : ''}">
       <div class="cart-item-info">
-        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-name">
+          ${item.name}
+          ${item.isCombo ? '<span class="cart-combo-badge">COMBO</span>' : ''}
+        </div>
         ${
-          item.removedIngredients.length > 0
+          item.isCombo && item.comboSelections
+            ? `<div class="cart-combo-details">
+                ${item.comboSelections
+                  .map(
+                    (sel) => `
+                  <div class="cart-combo-selection">
+                    <span class="cart-combo-slot">${sel.slotName}:</span> ${
+                      sel.productName
+                    }
+                    ${
+                      sel.removedIngredients?.length > 0
+                        ? `<span class="cart-combo-mods">(sin ${sel.removedIngredients.join(
+                            ', '
+                          )})</span>`
+                        : ''
+                    }
+                  </div>
+                `
+                  )
+                  .join('')}
+              </div>`
+            : ''
+        }
+        ${
+          !item.isCombo && item.removedIngredients?.length > 0
             ? `<div class="cart-item-mods">Sin: ${item.removedIngredients.join(
                 ', '
               )}</div>`
@@ -856,10 +1287,17 @@ function sendToWhatsApp() {
   let message = `*Nuevo Pedido - ${CONFIG.storeName}*\n\n`;
 
   cart.forEach((item) => {
-    message += `${item.quantity}x ${item.name} - ${formatPrice(
-      item.price * item.quantity
-    )}\n`;
-    if (item.removedIngredients.length > 0) {
+    message += `${item.quantity}x ${item.name}${
+      item.isCombo ? ' (COMBO)' : ''
+    } - ${formatPrice(item.price * item.quantity)}\n`;
+    if (item.isCombo && item.comboSelections) {
+      item.comboSelections.forEach((sel) => {
+        message += `   • ${sel.slotName}: ${sel.productName}\n`;
+        if (sel.removedIngredients?.length > 0) {
+          message += `      _Sin: ${sel.removedIngredients.join(', ')}_\n`;
+        }
+      });
+    } else if (item.removedIngredients?.length > 0) {
       message += `   _Sin: ${item.removedIngredients.join(', ')}_\n`;
     }
   });
@@ -876,7 +1314,8 @@ function sendToWhatsApp() {
   message += `\n\n*Tipo:* ${isDelivery ? 'Delivery' : 'Retiro en local'}`;
 
   if (isDelivery) {
-    message += `\n\n*Dirección:* (completar)`;
+    const address = elements.deliveryAddress?.value?.trim() || '(completar)';
+    message += `\n\n*Dirección:* ${address}`;
   }
 
   const encodedMessage = encodeURIComponent(message);
@@ -896,12 +1335,32 @@ function initEventListeners() {
   elements.modalCancel.addEventListener('click', closeCustomizeModal);
   elements.modalAdd.addEventListener('click', addToCartFromModal);
 
+  // Combo Modal
+  if (elements.comboModal) {
+    elements.comboModalClose?.addEventListener('click', closeComboModal);
+    elements.comboModalCancel?.addEventListener('click', closeComboModal);
+    elements.comboModalAdd?.addEventListener('click', addComboToCart);
+    elements.comboModal.addEventListener('click', (e) => {
+      if (e.target === elements.comboModal) {
+        closeComboModal();
+      }
+    });
+  }
+
   // WhatsApp
   elements.whatsappBtn.addEventListener('click', sendToWhatsApp);
 
   // Delivery toggle
   document.querySelectorAll('input[name="delivery"]').forEach((radio) => {
-    radio.addEventListener('change', updateCartSummary);
+    radio.addEventListener('change', () => {
+      updateCartSummary();
+      updateAddressVisibility();
+    });
+  });
+
+  // Address input - save to localStorage
+  elements.deliveryAddress.addEventListener('input', (e) => {
+    localStorage.setItem('deliveryAddress', e.target.value);
   });
 
   // Close customize modal on overlay click
@@ -992,10 +1451,14 @@ function initEventListeners() {
 }
 
 // ===== INITIALIZE =====
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   loadSettings();
   initLogo();
-  loadProducts();
+  loadAddress();
+  await loadProducts();
+  await loadCombos();
+  // Re-render products to include combos now that they're loaded
+  renderProducts();
   initEventListeners();
   updateCartCount();
 });

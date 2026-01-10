@@ -221,6 +221,19 @@
         <rect x="14" y="14" width="7" height="7"></rect>
         <rect x="3" y="14" width="7" height="7"></rect>
       </symbol>
+      <symbol
+        id="icon-layers"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </symbol>
     </svg>
 
     <!-- Header -->
@@ -338,6 +351,15 @@
           </label>
         </div>
 
+        <div class="address-input" id="addressInput" style="display: none">
+          <label for="deliveryAddress">Dirección de entrega</label>
+          <input
+            type="text"
+            id="deliveryAddress"
+            placeholder="Ingresá tu dirección..."
+          />
+        </div>
+
         <div class="cart-summary">
           <div class="summary-row">
             <span>Subtotal</span>
@@ -386,6 +408,34 @@
         <div class="modal-footer">
           <button class="btn-cancel" id="modalCancel">Cancelar</button>
           <button class="btn-add" id="modalAdd">
+            <svg class="icon"><use href="#icon-plus" /></svg>
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Combo Customization Modal -->
+    <div class="modal-overlay" id="comboModal">
+      <div class="modal combo-modal">
+        <div class="modal-header">
+          <div>
+            <h3 id="comboModalName">Combo</h3>
+            <p class="modal-price" id="comboModalPrice">$0</p>
+          </div>
+          <button class="modal-close" id="comboModalClose">
+            <svg class="icon"><use href="#icon-x" /></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-description" id="comboModalDescription"></p>
+          <div class="combo-slots" id="comboSlots">
+            <!-- Combo slots will be loaded here -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="comboModalCancel">Cancelar</button>
+          <button class="btn-add" id="comboModalAdd">
             <svg class="icon"><use href="#icon-plus" /></svg>
             <span>Agregar</span>
           </button>
@@ -447,12 +497,16 @@
             <label class="settings-toggle">
               <input type="checkbox" id="autoOpenCart" checked />
               <span class="toggle-slider"></span>
-              <span class="toggle-label">Abrir carrito al agregar</span>
+              <span class="toggle-label"
+                >Abrir carrito al agregar un producto</span
+              >
             </label>
             <label class="settings-toggle">
               <input type="checkbox" id="tapToAddCart" checked />
               <span class="toggle-slider"></span>
-              <span class="toggle-label">Tocar para agregar</span>
+              <span class="toggle-label"
+                >Tocar para agregar al carrito sin personalizar</span
+              >
             </label>
             <label class="settings-toggle">
               <input type="checkbox" id="navOnTop" />

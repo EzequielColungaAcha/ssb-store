@@ -11,6 +11,9 @@ const CONFIG = {
     startHour: 20, // 8 PM
     endHour: 24, // Midnight (use 24 for midnight, or 0 for next day)
     timezone: 'America/Argentina/Buenos_Aires',
+    // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    // Example: [4, 5, 6] = Thursday, Friday, Saturday
+    operatingDays: [0, 1, 2, 3, 4, 5, 6], // All days by default
   },
 };
 
@@ -126,7 +129,7 @@ function isWithinOperatingHours() {
     return true;
   }
 
-  const { startHour, endHour, timezone } = CONFIG.operatingHours;
+  const { startHour, endHour, timezone, operatingDays } = CONFIG.operatingHours;
 
   // Get current time in Argentina timezone
   const now = new Date();
@@ -134,6 +137,14 @@ function isWithinOperatingHours() {
     now.toLocaleString('en-US', { timeZone: timezone })
   );
   const currentHour = argentinaTime.getHours();
+  const currentDay = argentinaTime.getDay(); // 0 = Sunday, 6 = Saturday
+
+  // Check if current day is an operating day
+  if (operatingDays && operatingDays.length > 0) {
+    if (!operatingDays.includes(currentDay)) {
+      return false;
+    }
+  }
 
   // Handle cases like 20:00 - 24:00 (endHour = 24 means midnight)
   if (endHour === 24 || endHour === 0) {
@@ -150,12 +161,38 @@ function isWithinOperatingHours() {
 }
 
 function formatOperatingHours() {
-  const { startHour, endHour } = CONFIG.operatingHours;
+  const { startHour, endHour, operatingDays } = CONFIG.operatingHours;
+
   const formatHour = (h) => {
     if (h === 24 || h === 0) return '00:00';
     return `${h.toString().padStart(2, '0')}:00`;
   };
-  return `${formatHour(startHour)} a ${formatHour(endHour)}`;
+
+  const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+  // Format days
+  let daysStr = '';
+  if (operatingDays && operatingDays.length > 0 && operatingDays.length < 7) {
+    const sortedDays = [...operatingDays].sort((a, b) => a - b);
+
+    // Check if days are consecutive
+    const isConsecutive = sortedDays.every((day, i) => {
+      if (i === 0) return true;
+      return day === sortedDays[i - 1] + 1;
+    });
+
+    if (isConsecutive && sortedDays.length > 2) {
+      // Show as range (e.g., "Jue-Sáb")
+      daysStr = `${dayNames[sortedDays[0]]}-${
+        dayNames[sortedDays[sortedDays.length - 1]]
+      } `;
+    } else {
+      // Show as list (e.g., "Jue, Vie, Sáb")
+      daysStr = sortedDays.map((d) => dayNames[d]).join(', ') + ' ';
+    }
+  }
+
+  return `${daysStr}${formatHour(startHour)} a ${formatHour(endHour)}`;
 }
 
 function updateWhatsAppButtonState() {

@@ -1567,6 +1567,30 @@ function initEventListeners() {
   });
 }
 
+// ===== PWA INSTALL PROMPT =====
+window.deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the default browser prompt
+  e.preventDefault();
+  // Save the event for later use
+  window.deferredInstallPrompt = e;
+
+  // Show install section in settings if already loaded
+  const installSection = document.getElementById('installSection');
+  if (installSection) {
+    installSection.style.display = 'block';
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  window.deferredInstallPrompt = null;
+  const installSection = document.getElementById('installSection');
+  if (installSection) {
+    installSection.style.display = 'none';
+  }
+});
+
 // ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', async () => {
   loadSettings();
@@ -1587,6 +1611,34 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Register service worker for PWA
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js');
+  }
+
+  // Setup install button in settings
+  const installSection = document.getElementById('installSection');
+  const installBtn = document.getElementById('installApp');
+
+  if (installBtn && installSection) {
+    // Show install section if prompt is available
+    if (window.deferredInstallPrompt) {
+      installSection.style.display = 'block';
+    }
+
+    installBtn.addEventListener('click', async () => {
+      if (!window.deferredInstallPrompt) {
+        showToast('La app ya está instalada o no se puede instalar');
+        return;
+      }
+
+      window.deferredInstallPrompt.prompt();
+      const { outcome } = await window.deferredInstallPrompt.userChoice;
+
+      if (outcome === 'accepted') {
+        showToast('¡App instalada!');
+        installSection.style.display = 'none';
+      }
+
+      window.deferredInstallPrompt = null;
+    });
   }
 });
 

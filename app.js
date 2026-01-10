@@ -1583,6 +1583,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateWhatsAppButtonState();
   // Check every minute
   setInterval(updateWhatsAppButtonState, 60000);
+
+  // Register service worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
 });
 
 // Make functions available globally for inline onclick handlers

@@ -1,0 +1,17 @@
+{
+  "name": "Súper Smash Burger - Pedidos",
+  "short_name": "SSB Pedidos",
+  "description": "Sitio para pedidos de Súper Smash Burger.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#18181b",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

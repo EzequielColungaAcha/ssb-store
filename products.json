@@ -2,7 +2,7 @@
   {
     "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
     "name": "Coca-Cola 500cc",
-    "description": "",
+    "description": "Botella de Coca-Cola de 500cc",
     "price": 2500,
     "category": "bebidas",
     "ingredients": []
@@ -10,7 +10,7 @@
   {
     "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
     "name": "Fanta 500cc",
-    "description": "",
+    "description": "Botella de Fanta de 500cc",
     "price": 2500,
     "category": "bebidas",
     "ingredients": []
@@ -18,7 +18,7 @@
   {
     "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
     "name": "Sprite 500cc",
-    "description": "",
+    "description": "Botella de Sprite de 500cc",
     "price": 2500,
     "category": "bebidas",
     "ingredients": []
@@ -131,7 +131,7 @@
   {
     "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
     "name": "Papas Fritas",
-    "description": "",
+    "description": "Porción de Papas Fritas",
     "price": 2500,
     "category": "papas fritas",
     "ingredients": []

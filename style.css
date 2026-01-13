@@ -745,10 +745,12 @@ body {
 }
 
 /* Address Input */
+.name-input,
 .address-input {
   margin-bottom: 0.75rem;
 }
 
+.name-input label,
 .address-input label {
   display: block;
   font-size: 0.75rem;
@@ -757,6 +759,7 @@ body {
   margin-bottom: 0.25rem;
 }
 
+.name-input input,
 .address-input input {
   width: 100%;
   padding: 0.625rem 0.75rem;
@@ -768,10 +771,12 @@ body {
   font-family: inherit;
 }
 
+.name-input input::placeholder,
 .address-input input::placeholder {
   color: var(--text-light);
 }
 
+.name-input input:focus,
 .address-input input:focus {
   outline: none;
   border-color: var(--primary);

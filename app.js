@@ -71,6 +71,7 @@ const elements = {
   whatsappBtn: document.getElementById('whatsappBtn'),
   addressInput: document.getElementById('addressInput'),
   deliveryAddress: document.getElementById('deliveryAddress'),
+  customerName: document.getElementById('customerName'),
   customizeModal: document.getElementById('customizeModal'),
   modalProductName: document.getElementById('modalProductName'),
   modalProductPrice: document.getElementById('modalProductPrice'),
@@ -206,6 +207,7 @@ function updateWhatsAppButtonState() {
   if (!btn) return;
 
   if (isOpen) {
+    btn.style.display = '';
     btn.disabled = false;
     btn.classList.remove('disabled');
     btn.title = '';
@@ -213,9 +215,8 @@ function updateWhatsAppButtonState() {
     const closedMsg = document.getElementById('closedMessage');
     if (closedMsg) closedMsg.remove();
   } else {
-    btn.disabled = true;
-    btn.classList.add('disabled');
-    btn.title = `Pedidos disponibles de ${formatOperatingHours()}`;
+    // Hide the button completely when outside operating hours
+    btn.style.display = 'none';
 
     // Add closed message if not exists
     if (!document.getElementById('closedMessage')) {
@@ -495,6 +496,14 @@ function initLogo() {
         elements.navLogoText.style.display = 'block';
       }
     };
+  }
+}
+
+// ===== CUSTOMER NAME =====
+function loadCustomerName() {
+  const savedName = localStorage.getItem('customerName');
+  if (savedName && elements.customerName) {
+    elements.customerName.value = savedName;
   }
 }
 
@@ -1401,7 +1410,13 @@ function sendToWhatsApp() {
   }
   const total = subtotal + shipping;
 
-  let message = `*Nuevo Pedido - ${CONFIG.storeName}*\n\n`;
+  const customerName = elements.customerName?.value?.trim() || '';
+
+  let message = `*Nuevo Pedido - ${CONFIG.storeName}*\n`;
+  if (customerName) {
+    message += `*Cliente:* ${customerName}\n`;
+  }
+  message += '\n';
 
   cart.forEach((item) => {
     message += `${item.quantity}x ${item.name}${
@@ -1479,6 +1494,13 @@ function initEventListeners() {
   elements.deliveryAddress.addEventListener('input', (e) => {
     localStorage.setItem('deliveryAddress', e.target.value);
   });
+
+  // Customer name input - save to localStorage
+  if (elements.customerName) {
+    elements.customerName.addEventListener('input', (e) => {
+      localStorage.setItem('customerName', e.target.value);
+    });
+  }
 
   // Close customize modal on overlay click
   elements.customizeModal.addEventListener('click', (e) => {
@@ -1595,6 +1617,7 @@ window.addEventListener('appinstalled', () => {
 document.addEventListener('DOMContentLoaded', async () => {
   loadSettings();
   initLogo();
+  loadCustomerName();
   loadAddress();
   await loadProducts();
   await loadCombos();

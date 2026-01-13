@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ssb-pedidos-v1';
+const CACHE_NAME = 'ssb-pedidos-v2';
 
 // Static assets to cache
 const STATIC_ASSETS = [
@@ -47,9 +47,9 @@ self.addEventListener('fetch', (event) => {
     url.pathname.endsWith('combos.json')
   ) {
     event.respondWith(
-      fetch(event.request).catch(() => {
-        // If network fails, try cache as fallback
-        return caches.match(event.request);
+      fetch(event.request, { cache: 'no-store' }).catch(() => {
+        // If network fails, try cache as fallback (ignore query string for matching)
+        return caches.match(event.request, { ignoreSearch: true });
       })
     );
     return;

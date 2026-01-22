@@ -1456,7 +1456,14 @@ body {
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.ios-install-note {
+  font-size: 0.75rem;
+  color: var(--primary);
   margin-bottom: 0.75rem;
+  font-weight: 500;
 }
 
 .ios-install-steps {
@@ -1491,6 +1498,13 @@ body {
   font-size: 0.75rem;
   vertical-align: middle;
   margin: 0 0.125rem;
+}
+
+.ios-install-hint {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+  font-style: italic;
 }
 
 /* Toast Notifications - Sonner Style */

@@ -1,15 +1,27 @@
-const CACHE_NAME = 'ssb-pedidos-v2';
+const CACHE_NAME = 'ssb-pedidos-v3';
 
-// Static assets to cache
+// Static assets to cache (images and fonts only - not critical files)
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
   '/icon.png',
   '/logo.svg',
-  '/manifest.json',
 ];
+
+// Critical files that should always be fetched from network first
+const NETWORK_FIRST_FILES = [
+  'index.html',
+  'style.css',
+  'app.js',
+  'manifest.json',
+  'products.json',
+  'combos.json',
+];
+
+// Check if a request is for a critical file
+function isNetworkFirstFile(url) {
+  return NETWORK_FIRST_FILES.some(file => 
+    url.pathname.endsWith(file) || url.pathname === '/'
+  );
+}
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
@@ -37,25 +49,33 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch event - network first for JSON, cache first for static assets
+// Fetch event - network first for critical files, cache first for static assets
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Always fetch products.json and combos.json from network (fresh data)
-  if (
-    url.pathname.endsWith('products.json') ||
-    url.pathname.endsWith('combos.json')
-  ) {
+  // Network first strategy for critical files (HTML, CSS, JS, JSON)
+  if (isNetworkFirstFile(url)) {
     event.respondWith(
-      fetch(event.request, { cache: 'no-store' }).catch(() => {
-        // If network fails, try cache as fallback (ignore query string for matching)
-        return caches.match(event.request, { ignoreSearch: true });
-      })
+      fetch(event.request, { cache: 'no-store' })
+        .then((response) => {
+          // Cache the fresh response for offline fallback
+          if (response && response.status === 200) {
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // If network fails, try cache as fallback
+          return caches.match(event.request, { ignoreSearch: true });
+        })
     );
     return;
   }
 
-  // For other requests, try cache first, then network
+  // Cache first strategy for static assets (images, fonts)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {

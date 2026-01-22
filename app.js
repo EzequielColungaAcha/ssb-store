@@ -5,6 +5,11 @@ const CONFIG = {
   freeShippingThreshold: 45000,
   storeName: 'Súper Smash Burger',
   currency: '$',
+  // Maintenance mode configuration
+  maintenance: {
+    enabled: true,
+    message: 'Estamos en mantenimiento. Volvemos pronto!',
+  },
   // Operating hours configuration
   operatingHours: {
     enabled: true,
@@ -1640,9 +1645,46 @@ window.addEventListener('appinstalled', () => {
   }
 });
 
+// ===== MAINTENANCE MODE =====
+function checkMaintenanceMode() {
+  if (!CONFIG.maintenance.enabled) {
+    return false;
+  }
+
+  const maintenanceOverlay = document.getElementById('maintenanceOverlay');
+  const maintenanceMessage = document.getElementById('maintenanceMessage');
+
+  if (maintenanceOverlay) {
+    maintenanceOverlay.style.display = 'flex';
+    if (maintenanceMessage && CONFIG.maintenance.message) {
+      maintenanceMessage.textContent = CONFIG.maintenance.message;
+    }
+  }
+
+  // Hide main content
+  const header = document.querySelector('.header');
+  const main = document.querySelector('.main');
+  const bottomNav = document.getElementById('bottomNav');
+  const filterBar = document.getElementById('filterBar');
+
+  if (header) header.style.display = 'none';
+  if (main) main.style.display = 'none';
+  if (bottomNav) bottomNav.style.display = 'none';
+  if (filterBar) filterBar.style.display = 'none';
+
+  return true;
+}
+
 // ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', async () => {
+  // Apply theme first so maintenance page has correct colors
   loadSettings();
+
+  // Check maintenance mode - if enabled, skip all other initialization
+  if (checkMaintenanceMode()) {
+    return;
+  }
+
   initLogo();
   loadCustomerName();
   loadAddress();

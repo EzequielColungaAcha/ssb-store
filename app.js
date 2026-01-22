@@ -474,10 +474,12 @@ function resetColors() {
 
 function openSettings() {
   elements.settingsModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeSettings() {
   elements.settingsModal.classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 // ===== LOGO =====
@@ -972,10 +974,12 @@ function openCustomizeModal(product) {
   }
 
   elements.customizeModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeCustomizeModal() {
   elements.customizeModal.classList.remove('active');
+  document.body.style.overflow = '';
   currentProduct = null;
   removedIngredients = [];
 }
@@ -1004,6 +1008,7 @@ function openComboModal(combo) {
 
   renderComboModal();
   elements.comboModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function renderComboModal() {
@@ -1137,6 +1142,7 @@ function renderComboModal() {
 
 function closeComboModal() {
   elements.comboModal.classList.remove('active');
+  document.body.style.overflow = '';
   currentCombo = null;
   comboSelections = [];
 }
@@ -1191,10 +1197,12 @@ function addToCartFromModal() {
 function openCategoriesModal() {
   renderCategoriesModal();
   elements.categoriesModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeCategoriesModal() {
   elements.categoriesModal.classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 // ===== CART FUNCTIONS =====
@@ -1592,6 +1600,21 @@ function initEventListeners() {
 // ===== PWA INSTALL PROMPT =====
 window.deferredInstallPrompt = null;
 
+// Detect iOS Safari
+function isIOSSafari() {
+  const ua = window.navigator.userAgent;
+  const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+  const webkit = !!ua.match(/WebKit/i);
+  const iOSSafari = iOS && webkit && !ua.match(/CriOS/i) && !ua.match(/FxiOS/i);
+  return iOSSafari;
+}
+
+// Check if app is already installed (running as standalone)
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches ||
+         window.navigator.standalone === true;
+}
+
 window.addEventListener('beforeinstallprompt', (e) => {
   // Prevent the default browser prompt
   e.preventDefault();
@@ -1600,8 +1623,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
   // Show install section in settings if already loaded
   const installSection = document.getElementById('installSection');
+  const installBtn = document.getElementById('installApp');
+  const iosInstructions = document.getElementById('iosInstallInstructions');
   if (installSection) {
     installSection.style.display = 'block';
+    if (installBtn) installBtn.style.display = 'flex';
+    if (iosInstructions) iosInstructions.style.display = 'none';
   }
 });
 
@@ -1639,13 +1666,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Setup install button in settings
   const installSection = document.getElementById('installSection');
   const installBtn = document.getElementById('installApp');
+  const iosInstructions = document.getElementById('iosInstallInstructions');
 
-  if (installBtn && installSection) {
-    // Show install section if prompt is available
-    if (window.deferredInstallPrompt) {
+  if (installSection) {
+    // Don't show install section if already running as standalone app
+    if (isStandalone()) {
+      installSection.style.display = 'none';
+    } else if (isIOSSafari()) {
+      // Show iOS-specific install instructions
       installSection.style.display = 'block';
+      if (installBtn) installBtn.style.display = 'none';
+      if (iosInstructions) iosInstructions.style.display = 'block';
+    } else if (window.deferredInstallPrompt) {
+      // Show standard install button if prompt is available
+      installSection.style.display = 'block';
+      if (installBtn) installBtn.style.display = 'flex';
+      if (iosInstructions) iosInstructions.style.display = 'none';
     }
+  }
 
+  if (installBtn) {
     installBtn.addEventListener('click', async () => {
       if (!window.deferredInstallPrompt) {
         showToast('La app ya está instalada o no se puede instalar');
@@ -1657,7 +1697,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (outcome === 'accepted') {
         showToast('¡App instalada!');
-        installSection.style.display = 'none';
+        if (installSection) installSection.style.display = 'none';
       }
 
       window.deferredInstallPrompt = null;

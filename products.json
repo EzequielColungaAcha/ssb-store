@@ -1,24 +1,24 @@
 [
   {
     "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
-    "name": "Coca-Cola 500cc",
-    "description": "Botella de Coca-Cola de 500cc",
+    "name": "Coca-Cola 600cc",
+    "description": "Botella de Coca-Cola de 600cc",
     "price": 2500,
     "category": "bebidas",
     "ingredients": []
   },
   {
     "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
-    "name": "Fanta 500cc",
-    "description": "Botella de Fanta de 500cc",
+    "name": "Fanta 600cc",
+    "description": "Botella de Fanta de 600cc",
     "price": 2500,
     "category": "bebidas",
     "ingredients": []
   },
   {
     "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
-    "name": "Sprite 500cc",
-    "description": "Botella de Sprite de 500cc",
+    "name": "Sprite 600cc",
+    "description": "Botella de Sprite de 600cc",
     "price": 2500,
     "category": "bebidas",
     "ingredients": []
@@ -26,13 +26,17 @@
   {
     "id": "a829b0e3-7dc3-4717-b639-0891dc667e0b",
     "name": "Americana",
-    "description": "Pan de papa, doble paty, doble queso cheddar, lechuga, tomate, cebolla brunoise y salsa mil islas.",
+    "description": "Pan de papa, doble paty, triple queso cheddar, lechuga, tomate, cebolla brunoise y salsa mil islas.",
     "price": 9000,
     "category": "hamburguesas",
     "ingredients": [
       {
-        "id": "c8b6d0c1-f19c-4ea3-8bea-26c54f8f0403",
-        "name": "Lechuga"
+        "id": "ea444722-e696-4e55-9052-91bb85c211fd",
+        "name": "Tomate"
+      },
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
       },
       {
         "id": "36a898c0-1470-4ec5-b87a-6ce62ae0056b",
@@ -43,19 +47,44 @@
         "name": "Salsa Mil Islas"
       },
       {
-        "id": "087b0600-8390-411e-9d12-3b707276c218",
-        "name": "Queso Cheddar"
+        "id": "c8b6d0c1-f19c-4ea3-8bea-26c54f8f0403",
+        "name": "Lechuga"
+      }
+    ]
+  },
+  {
+    "id": "041c5b59-0fb2-480e-b6b1-8dd17d97d1f3",
+    "name": "Americana Triple",
+    "description": "Pan de papa, triple paty, cuádruple queso cheddar, lechuga, tomate, cebolla brunoise y salsa mil islas.",
+    "price": 11500,
+    "category": "hamburguesas",
+    "ingredients": [
+      {
+        "id": "36a898c0-1470-4ec5-b87a-6ce62ae0056b",
+        "name": "Cebolla"
       },
       {
         "id": "ea444722-e696-4e55-9052-91bb85c211fd",
         "name": "Tomate"
+      },
+      {
+        "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
+        "name": "Salsa Mil Islas"
+      },
+      {
+        "id": "c8b6d0c1-f19c-4ea3-8bea-26c54f8f0403",
+        "name": "Lechuga"
+      },
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
       }
     ]
   },
   {
     "id": "f6c5dbdc-a390-45f7-90c7-1d89fbed8703",
     "name": "Bacon Jam",
-    "description": "Pan de papa, doble paty, doble queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas.",
+    "description": "Pan de papa, doble paty, triple queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas.",
     "price": 10000,
     "category": "hamburguesas",
     "ingredients": [
@@ -74,6 +103,23 @@
     ]
   },
   {
+    "id": "16df83a7-c59e-44dc-8952-8d1c7924a209",
+    "name": "Bacon Jam Triple",
+    "description": "Pan de papa, triple paty, cuádruple queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas.",
+    "price": 12500,
+    "category": "hamburguesas",
+    "ingredients": [
+      {
+        "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
+        "name": "Salsa Mil Islas"
+      },
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
+      }
+    ]
+  },
+  {
     "id": "27f43256-62f6-4a1b-a8fa-e4f266790fd6",
     "name": "Chester",
     "description": "Pan de molde, un paty, doble queso cheddar.",
@@ -84,8 +130,21 @@
   {
     "id": "a002d068-e9cb-4d1d-9331-abc4a3e2b865",
     "name": "Clásica",
-    "description": "Pan de Papa, doble paty, doble queso cheddar.",
+    "description": "Pan de Papa, doble paty, triple queso cheddar.",
     "price": 8000,
+    "category": "hamburguesas",
+    "ingredients": [
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
+      }
+    ]
+  },
+  {
+    "id": "86629828-82bf-4ce1-803f-e315f4bcb3ab",
+    "name": "Clásica Triple",
+    "description": "Pan de Papa, triple paty, cuádruple queso cheddar.",
+    "price": 10500,
     "category": "hamburguesas",
     "ingredients": [
       {
@@ -97,8 +156,21 @@
   {
     "id": "ce1acd67-dba1-47d3-b329-6d085f1d22f7",
     "name": "Oklahoma",
-    "description": "Pan de papa, doble paty, doble queso cheddar, cebolla grillada en conjunto con el paty.",
+    "description": "Pan de papa, doble paty, triple queso cheddar, cebolla grillada en conjunto con el paty.",
     "price": 9000,
+    "category": "hamburguesas",
+    "ingredients": [
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
+      }
+    ]
+  },
+  {
+    "id": "303177b3-7242-4e17-abad-4f2b47c3dac1",
+    "name": "Oklahoma Triple",
+    "description": "Pan de papa, triple paty, cuádruple queso cheddar, cebolla grillada en conjunto con el paty.",
+    "price": 11500,
     "category": "hamburguesas",
     "ingredients": [
       {
@@ -110,17 +182,17 @@
   {
     "id": "dbd5d8f4-4cde-4e02-94df-b09d93302f62",
     "name": "Palta",
-    "description": "Pan de papa, doble paty, doble queso cheddar, salsa de palta (palta, albahaca y ajo) y un huevo.",
+    "description": "Pan de papa, doble paty, triple queso cheddar, salsa de palta (palta, albahaca y ajo) y un huevo.",
     "price": 9000,
     "category": "hamburguesas",
     "ingredients": [
       {
-        "id": "087b0600-8390-411e-9d12-3b707276c218",
-        "name": "Queso Cheddar"
-      },
-      {
         "id": "bb1df0b3-8b6c-4fd4-b539-ef214fcb214d",
         "name": "Topping: Palta"
+      },
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
       },
       {
         "id": "ca33127c-12ba-4399-9e89-02eab2327282",
@@ -129,10 +201,49 @@
     ]
   },
   {
+    "id": "eb61fa47-6c82-446e-808a-5551d50b1ed9",
+    "name": "Palta Triple",
+    "description": "Pan de papa, triple paty, cuádruple queso cheddar, salsa de palta (palta, albahaca y ajo) y un huevo.",
+    "price": 11500,
+    "category": "hamburguesas",
+    "ingredients": [
+      {
+        "id": "ca33127c-12ba-4399-9e89-02eab2327282",
+        "name": "Huevo"
+      },
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
+      }
+    ]
+  },
+  {
+    "id": "d923b91f-a79a-4bdc-8ddd-21fc18cd685c",
+    "name": "Stacker",
+    "description": "Pan de Papa, Patties y Queso Cheddar, cuánto?\nEso lo decidís vos! Cada paty lleva su propio queso cheddar.",
+    "price": 3000,
+    "category": "hamburguesas",
+    "ingredients": [
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
+      },
+      {
+        "id": "b12629ae-b101-48c5-8fb5-040e2d79e7f4",
+        "name": "Paty",
+        "is_variable": true,
+        "min_quantity": 4,
+        "max_quantity": 10,
+        "default_quantity": 4,
+        "price_per_unit": 2500
+      }
+    ]
+  },
+  {
     "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
     "name": "Papas Fritas",
     "description": "Porción de Papas Fritas",
-    "price": 2500,
+    "price": 3000,
     "category": "papas fritas",
     "ingredients": []
   }

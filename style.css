@@ -1066,6 +1066,155 @@ body {
   color: var(--text-muted);
 }
 
+/* Variable ingredient styles */
+.ingredients-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.ingredients-label:first-child {
+  margin-top: 0;
+}
+
+.variable-label {
+  color: var(--primary);
+}
+
+.variable-ingredient-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: var(--background);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.5rem;
+}
+
+.variable-ingredient-info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.variable-ingredient-name {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+.variable-ingredient-price {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.variable-ingredient-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.variable-qty-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.variable-qty-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.variable-qty-btn:not(:disabled):hover {
+  background: var(--primary-dark);
+}
+
+.variable-qty-btn .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.variable-qty-value {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+/* Combo modal variable ingredients */
+.combo-slot-ingredients.variable-ingredients {
+  margin-top: 0.75rem;
+}
+
+.combo-variable-ingredient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  margin-top: 0.375rem;
+}
+
+.combo-variable-name {
+  font-size: 0.8125rem;
+  color: var(--text);
+}
+
+.combo-variable-price {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 0.375rem;
+}
+
+.combo-variable-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.combo-variable-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.combo-variable-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.combo-variable-qty {
+  min-width: 1.25rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
 .modal-footer {
   padding: 1rem;
   padding-bottom: calc(1rem + var(--safe-bottom));

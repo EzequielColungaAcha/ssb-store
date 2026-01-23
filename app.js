@@ -7,7 +7,7 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: true,
+    enabled: false,
     message: 'Estamos en mantenimiento. Volvemos pronto!',
   },
   // Operating hours configuration
@@ -18,7 +18,7 @@ const CONFIG = {
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday
-    operatingDays: [0, 1, 2, 3, 4, 5, 6], // All days by default
+    operatingDays: [6], // All days by default
   },
 };
 
@@ -46,6 +46,7 @@ let currentProduct = null;
 let currentCombo = null;
 let comboSelections = [];
 let removedIngredients = [];
+let variableIngredients = {}; // { ingredientId: selectedQuantity }
 let currentCategory = 'all';
 let settings = {
   theme: 'light',
@@ -125,6 +126,19 @@ function formatPrice(price) {
   return CONFIG.currency + price.toLocaleString('es-AR');
 }
 
+// Calculate display price including minimum variable ingredient prices
+function getProductDisplayPrice(product) {
+  let price = product.price;
+  if (product.ingredients) {
+    product.ingredients
+      .filter((ing) => ing.is_variable)
+      .forEach((ing) => {
+        price += (ing.min_quantity || 1) * (ing.price_per_unit || 0);
+      });
+  }
+  return price;
+}
+
 function generateCartItemId() {
   return 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
@@ -191,14 +205,14 @@ function formatOperatingHours() {
       // Show as range (e.g., "Jue-Sáb")
       daysStr = `${dayNames[sortedDays[0]]}-${
         dayNames[sortedDays[sortedDays.length - 1]]
-      } `;
+      }`;
     } else {
       // Show as list (e.g., "Jue, Vie, Sáb")
       daysStr = sortedDays.map((d) => dayNames[d]).join(', ') + ' ';
     }
   }
 
-  return `${daysStr}${formatHour(startHour)} a ${formatHour(endHour)}`;
+  return `${daysStr} de ${formatHour(startHour)} a ${formatHour(endHour)}`;
 }
 
 function updateWhatsAppButtonState() {
@@ -228,7 +242,7 @@ function updateWhatsAppButtonState() {
       const msg = document.createElement('div');
       msg.id = 'closedMessage';
       msg.className = 'closed-message';
-      msg.innerHTML = `<svg class="icon"><use href="#icon-x"/></svg> Pedidos disponibles de ${formatOperatingHours()}`;
+      msg.innerHTML = `<svg class="icon"><use href="#icon-x"/></svg> Pedidos disponibles ${formatOperatingHours()}`;
       btn.parentNode.insertBefore(msg, btn);
     }
   }
@@ -787,7 +801,7 @@ function renderProducts(category = currentCategory) {
           ? `<div class="product-description">${product.description}</div>`
           : ''
       }
-      <div class="product-price">${formatPrice(product.price)}</div>
+      <div class="product-price">${formatPrice(getProductDisplayPrice(product))}</div>
       ${
         product.ingredients && product.ingredients.length > 0
           ? `<div class="product-customize"><svg class="icon"><use href="#icon-sparkles"/></svg> Personalizable</div>`
@@ -902,29 +916,59 @@ function getComboDisplayPrice(combo) {
 
 // Calculate actual combo price based on selections
 function calculateComboPrice(combo, selections) {
+  // Calculate base price
+  let basePrice = 0;
   if (combo.price_type === 'fixed') {
-    return combo.fixed_price || 0;
+    basePrice = combo.fixed_price || 0;
+  } else {
+    // Calculate sum of selected products
+    for (const selection of selections) {
+      basePrice += selection.productPrice || 0;
+    }
+
+    // Apply discount
+    if (combo.discount_type === 'percentage' && combo.discount_value) {
+      basePrice = basePrice * (1 - combo.discount_value / 100);
+    } else if (combo.discount_type === 'fixed' && combo.discount_value) {
+      basePrice = Math.max(0, basePrice - combo.discount_value);
+    }
   }
 
-  // Calculate sum of selected products
-  let total = 0;
+  // Add variable ingredient prices (these are always added on top)
+  let variableTotal = 0;
   for (const selection of selections) {
-    total += selection.productPrice || 0;
+    if (selection.variableIngredients) {
+      variableTotal += selection.variableIngredients.reduce(
+        (sum, v) => sum + v.quantity * v.pricePerUnit,
+        0
+      );
+    }
   }
 
-  // Apply discount
-  if (combo.discount_type === 'percentage' && combo.discount_value) {
-    total = total * (1 - combo.discount_value / 100);
-  } else if (combo.discount_type === 'fixed' && combo.discount_value) {
-    total = Math.max(0, total - combo.discount_value);
-  }
-
-  return Math.round(total);
+  return Math.round(basePrice + variableTotal);
 }
 
 // Quick add without modal
 function quickAddToCart(product) {
-  addToCart(product, []);
+  // Collect variable ingredients with minimum quantities
+  const varIngs = [];
+  if (product.ingredients) {
+    product.ingredients
+      .filter((ing) => ing.is_variable)
+      .forEach((ing) => {
+        const minQty = ing.min_quantity || 1;
+        if (minQty > 0) {
+          varIngs.push({
+            id: ing.id,
+            name: ing.name,
+            quantity: minQty,
+            pricePerUnit: ing.price_per_unit || 0,
+          });
+        }
+      });
+  }
+
+  addToCart(product, [], varIngs.length > 0 ? varIngs : null);
 
   if (settings.autoOpenCart) {
     openCart();
@@ -937,28 +981,123 @@ function quickAddToCart(product) {
 function openCustomizeModal(product) {
   currentProduct = product;
   removedIngredients = [];
+  variableIngredients = {};
 
-  elements.modalProductName.textContent = product.name;
-  elements.modalProductPrice.textContent = formatPrice(product.price);
-  elements.modalProductDescription.textContent = product.description || '';
+  // Initialize variable ingredients with default quantities
+  if (product.ingredients) {
+    product.ingredients
+      .filter((ing) => ing.is_variable)
+      .forEach((ing) => {
+        variableIngredients[ing.id] = ing.default_quantity || 1;
+      });
+  }
 
-  if (product.ingredients && product.ingredients.length > 0) {
+  updateCustomizeModalDisplay();
+  elements.customizeModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function calculateCurrentProductPrice() {
+  if (!currentProduct) return 0;
+  let price = currentProduct.price;
+
+  // Add variable ingredient prices
+  if (currentProduct.ingredients) {
+    currentProduct.ingredients
+      .filter((ing) => ing.is_variable)
+      .forEach((ing) => {
+        const qty = variableIngredients[ing.id] || 0;
+        price += qty * (ing.price_per_unit || 0);
+      });
+  }
+
+  return price;
+}
+
+function updateCustomizeModalDisplay() {
+  if (!currentProduct) return;
+
+  elements.modalProductName.textContent = currentProduct.name;
+  elements.modalProductPrice.textContent = formatPrice(
+    calculateCurrentProductPrice()
+  );
+  elements.modalProductDescription.textContent =
+    currentProduct.description || '';
+
+  const regularIngredients = currentProduct.ingredients?.filter(
+    (ing) => !ing.is_variable
+  ) || [];
+  const variableIngs = currentProduct.ingredients?.filter(
+    (ing) => ing.is_variable
+  ) || [];
+
+  if (regularIngredients.length > 0 || variableIngs.length > 0) {
     elements.ingredientsSection.style.display = 'block';
-    elements.ingredientsList.innerHTML = product.ingredients
-      .map(
-        (ing) => `
-      <div class="ingredient-item" data-id="${ing.id}">
-        <div class="ingredient-checkbox">
-          <svg class="icon"><use href="#icon-x"/></svg>
-        </div>
-        <span class="ingredient-name">${ing.name}</span>
-      </div>
-    `
-      )
-      .join('');
 
+    let html = '';
+
+    // Regular removable ingredients
+    if (regularIngredients.length > 0) {
+      html += '<div class="ingredients-label">Quitar ingredientes:</div>';
+      html += regularIngredients
+        .map(
+          (ing) => `
+        <div class="ingredient-item ${
+          removedIngredients.includes(ing.id) ? 'removed' : ''
+        }" data-id="${ing.id}" data-type="removable">
+          <div class="ingredient-checkbox">
+            <svg class="icon"><use href="#icon-x"/></svg>
+          </div>
+          <span class="ingredient-name">${ing.name}</span>
+        </div>
+      `
+        )
+        .join('');
+    }
+
+    // Variable quantity ingredients
+    if (variableIngs.length > 0) {
+      html += '<div class="ingredients-label variable-label">Extras:</div>';
+      html += variableIngs
+        .map(
+          (ing) => `
+        <div class="variable-ingredient-item" data-id="${ing.id}">
+          <div class="variable-ingredient-info">
+            <span class="variable-ingredient-name">${ing.name}</span>
+            <span class="variable-ingredient-price">(+${formatPrice(
+              ing.price_per_unit || 0
+            )}/u)</span>
+          </div>
+          <div class="variable-ingredient-controls">
+            <button class="variable-qty-btn minus" data-id="${ing.id}" ${
+            (variableIngredients[ing.id] || 0) <= (ing.min_quantity || 0)
+              ? 'disabled'
+              : ''
+          }>
+              <svg class="icon"><use href="#icon-minus"/></svg>
+            </button>
+            <span class="variable-qty-value">${
+              variableIngredients[ing.id] || 0
+            }</span>
+            <button class="variable-qty-btn plus" data-id="${ing.id}" ${
+            (variableIngredients[ing.id] || 0) >= (ing.max_quantity || 99)
+              ? 'disabled'
+              : ''
+          }>
+              <svg class="icon"><use href="#icon-plus"/></svg>
+            </button>
+          </div>
+        </div>
+      `
+        )
+        .join('');
+    }
+
+    elements.ingredientsList.innerHTML = html;
+
+    // Add event listeners for regular ingredients
     elements.ingredientsList
-      .querySelectorAll('.ingredient-item')
+      .querySelectorAll('.ingredient-item[data-type="removable"]')
       .forEach((item) => {
         item.addEventListener('click', () => {
           item.classList.toggle('removed');
@@ -974,12 +1113,30 @@ function openCustomizeModal(product) {
           }
         });
       });
+
+    // Add event listeners for variable ingredient buttons
+    elements.ingredientsList
+      .querySelectorAll('.variable-qty-btn')
+      .forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const ingId = btn.dataset.id;
+          const ing = currentProduct.ingredients.find((i) => i.id === ingId);
+          if (!ing) return;
+
+          const delta = btn.classList.contains('plus') ? 1 : -1;
+          const currentQty = variableIngredients[ingId] || 0;
+          const newQty = Math.max(
+            ing.min_quantity || 0,
+            Math.min(ing.max_quantity || 99, currentQty + delta)
+          );
+          variableIngredients[ingId] = newQty;
+          updateCustomizeModalDisplay();
+        });
+      });
   } else {
     elements.ingredientsSection.style.display = 'none';
   }
-
-  elements.customizeModal.classList.add('active');
-  document.body.style.overflow = 'hidden';
 }
 
 function closeCustomizeModal() {
@@ -987,6 +1144,7 @@ function closeCustomizeModal() {
   document.body.style.overflow = '';
   currentProduct = null;
   removedIngredients = [];
+  variableIngredients = {};
 }
 
 // ===== COMBO MODAL =====
@@ -1000,6 +1158,21 @@ function openComboModal(combo) {
       (p) => p.id === slot.default_product_id
     );
     for (let i = 0; i < slot.quantity; i++) {
+      // Initialize variable ingredients for this product
+      const variableIngs = [];
+      if (defaultProduct?.ingredients) {
+        defaultProduct.ingredients
+          .filter((ing) => ing.is_variable)
+          .forEach((ing) => {
+            variableIngs.push({
+              id: ing.id,
+              name: ing.name,
+              quantity: ing.default_quantity || 1,
+              pricePerUnit: ing.price_per_unit || 0,
+            });
+          });
+      }
+
       comboSelections.push({
         slotId: slot.id,
         slotName: slot.name,
@@ -1007,6 +1180,7 @@ function openComboModal(combo) {
         productName: defaultProduct?.name || slot.products[0]?.name || '',
         productPrice: defaultProduct?.price || slot.products[0]?.price || 0,
         removedIngredients: [],
+        variableIngredients: variableIngs,
       });
     }
   }
@@ -1067,11 +1241,13 @@ function renderComboModal() {
                 }</div>`
           }
           ${
-            selectedProduct?.ingredients?.length > 0
+            selectedProduct?.ingredients?.filter((ing) => !ing.is_variable)
+              .length > 0
               ? `
             <div class="combo-slot-ingredients">
               <div class="combo-ingredients-label">Quitar:</div>
               ${selectedProduct.ingredients
+                .filter((ing) => !ing.is_variable)
                 .map(
                   (ing) => `
                 <button class="combo-ingredient-btn ${
@@ -1085,6 +1261,36 @@ function renderComboModal() {
                 </button>
               `
                 )
+                .join('')}
+            </div>
+          `
+              : ''
+          }
+          ${
+            selectedProduct?.ingredients?.filter((ing) => ing.is_variable)
+              .length > 0
+              ? `
+            <div class="combo-slot-ingredients variable-ingredients">
+              <div class="combo-ingredients-label">Extras:</div>
+              ${selectedProduct.ingredients
+                .filter((ing) => ing.is_variable)
+                .map((ing) => {
+                  const varIng = selection?.variableIngredients?.find(
+                    (v) => v.id === ing.id
+                  );
+                  const qty = varIng?.quantity || 0;
+                  return `
+                    <div class="combo-variable-ingredient" data-selection-index="${selectionIndex}" data-ingredient-id="${ing.id}">
+                      <span class="combo-variable-name">${ing.name}</span>
+                      <span class="combo-variable-price">(+${formatPrice(ing.price_per_unit || 0)}/u)</span>
+                      <div class="combo-variable-controls">
+                        <button class="combo-variable-btn minus" data-selection-index="${selectionIndex}" data-ingredient-id="${ing.id}" ${qty <= (ing.min_quantity || 0) ? 'disabled' : ''}>-</button>
+                        <span class="combo-variable-qty">${qty}</span>
+                        <button class="combo-variable-btn plus" data-selection-index="${selectionIndex}" data-ingredient-id="${ing.id}" ${qty >= (ing.max_quantity || 99) ? 'disabled' : ''}>+</button>
+                      </div>
+                    </div>
+                  `;
+                })
                 .join('')}
             </div>
           `
@@ -1112,12 +1318,28 @@ function renderComboModal() {
         const product = slot?.products.find((p) => p.id === productId);
 
         if (product) {
+          // Initialize variable ingredients for new product
+          const variableIngs = [];
+          if (product.ingredients) {
+            product.ingredients
+              .filter((ing) => ing.is_variable)
+              .forEach((ing) => {
+                variableIngs.push({
+                  id: ing.id,
+                  name: ing.name,
+                  quantity: ing.default_quantity || 1,
+                  pricePerUnit: ing.price_per_unit || 0,
+                });
+              });
+          }
+
           comboSelections[idx] = {
             ...selection,
             productId: product.id,
             productName: product.name,
             productPrice: product.price,
             removedIngredients: [],
+            variableIngredients: variableIngs,
           };
           renderComboModal();
         }
@@ -1140,6 +1362,50 @@ function renderComboModal() {
         } else {
           selection.removedIngredients.push(ingredientName);
         }
+        renderComboModal();
+      });
+    });
+
+  // Add event listeners for variable ingredient buttons
+  elements.comboSlots
+    .querySelectorAll('.combo-variable-btn')
+    .forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = parseInt(btn.dataset.selectionIndex);
+        const ingredientId = btn.dataset.ingredientId;
+
+        const selection = comboSelections[idx];
+        const slot = currentCombo.slots.find((s) => s.id === selection.slotId);
+        const product = slot?.products.find((p) => p.id === selection.productId);
+        const ing = product?.ingredients?.find((i) => i.id === ingredientId);
+
+        if (!ing) return;
+
+        const delta = btn.classList.contains('plus') ? 1 : -1;
+        const varIng = selection.variableIngredients?.find(
+          (v) => v.id === ingredientId
+        );
+
+        if (varIng) {
+          const newQty = Math.max(
+            ing.min_quantity || 0,
+            Math.min(ing.max_quantity || 99, varIng.quantity + delta)
+          );
+          varIng.quantity = newQty;
+        } else {
+          // Add new variable ingredient
+          if (!selection.variableIngredients) {
+            selection.variableIngredients = [];
+          }
+          selection.variableIngredients.push({
+            id: ing.id,
+            name: ing.name,
+            quantity: Math.max(ing.min_quantity || 0, delta > 0 ? 1 : 0),
+            pricePerUnit: ing.price_per_unit || 0,
+          });
+        }
+
         renderComboModal();
       });
     });
@@ -1188,7 +1454,25 @@ function addToCartFromModal() {
     })
     .filter(Boolean);
 
-  addToCart(currentProduct, removedNames);
+  // Collect variable ingredients with quantities > 0
+  const varIngs = [];
+  if (currentProduct.ingredients) {
+    currentProduct.ingredients
+      .filter((ing) => ing.is_variable)
+      .forEach((ing) => {
+        const qty = variableIngredients[ing.id] || 0;
+        if (qty > 0) {
+          varIngs.push({
+            id: ing.id,
+            name: ing.name,
+            quantity: qty,
+            pricePerUnit: ing.price_per_unit || 0,
+          });
+        }
+      });
+  }
+
+  addToCart(currentProduct, removedNames, varIngs.length > 0 ? varIngs : null);
   closeCustomizeModal();
 
   if (settings.autoOpenCart) {
@@ -1211,13 +1495,30 @@ function closeCategoriesModal() {
 }
 
 // ===== CART FUNCTIONS =====
-function addToCart(product, removedIngredients = []) {
+function addToCart(product, removedIngredients = [], variableIngs = null) {
   const removedKey = removedIngredients.sort().join(',');
-  const existing = cart.find(
-    (item) =>
-      item.productId === product.id &&
-      item.removedIngredients.sort().join(',') === removedKey
-  );
+  const variableKey = variableIngs
+    ? variableIngs.map((v) => `${v.id}:${v.quantity}`).join(',')
+    : '';
+  const fullKey = `${removedKey}|${variableKey}`;
+
+  // Calculate total price including variable ingredients
+  let totalPrice = product.price;
+  if (variableIngs) {
+    totalPrice += variableIngs.reduce(
+      (sum, v) => sum + v.quantity * v.pricePerUnit,
+      0
+    );
+  }
+
+  const existing = cart.find((item) => {
+    const itemRemovedKey = (item.removedIngredients || []).sort().join(',');
+    const itemVariableKey = item.variableIngredients
+      ? item.variableIngredients.map((v) => `${v.id}:${v.quantity}`).join(',')
+      : '';
+    const itemFullKey = `${itemRemovedKey}|${itemVariableKey}`;
+    return item.productId === product.id && itemFullKey === fullKey;
+  });
 
   if (existing) {
     existing.quantity += 1;
@@ -1226,9 +1527,10 @@ function addToCart(product, removedIngredients = []) {
       id: generateCartItemId(),
       productId: product.id,
       name: product.name,
-      price: product.price,
+      price: totalPrice,
       quantity: 1,
       removedIngredients,
+      variableIngredients: variableIngs,
     });
   }
 
@@ -1291,6 +1593,13 @@ function renderCartItems() {
                           )})</span>`
                         : ''
                     }
+                    ${
+                      sel.variableIngredients?.length > 0
+                        ? `<span class="cart-combo-mods">(${sel.variableIngredients
+                            .map((v) => `${v.quantity}x ${v.name}`)
+                            .join(', ')})</span>`
+                        : ''
+                    }
                   </div>
                 `
                   )
@@ -1303,6 +1612,13 @@ function renderCartItems() {
             ? `<div class="cart-item-mods">Sin: ${item.removedIngredients.join(
                 ', '
               )}</div>`
+            : ''
+        }
+        ${
+          !item.isCombo && item.variableIngredients?.length > 0
+            ? `<div class="cart-item-mods">Con: ${item.variableIngredients
+                .map((v) => `${v.quantity}x ${v.name}`)
+                .join(', ')}</div>`
             : ''
         }
         <div class="cart-item-price">${formatPrice(
@@ -1441,9 +1757,21 @@ function sendToWhatsApp() {
         if (sel.removedIngredients?.length > 0) {
           message += `      _Sin: ${sel.removedIngredients.join(', ')}_\n`;
         }
+        if (sel.variableIngredients?.length > 0) {
+          message += `      _Con: ${sel.variableIngredients
+            .map((v) => `${v.quantity}x ${v.name}`)
+            .join(', ')}_\n`;
+        }
       });
-    } else if (item.removedIngredients?.length > 0) {
-      message += `   _Sin: ${item.removedIngredients.join(', ')}_\n`;
+    } else {
+      if (item.removedIngredients?.length > 0) {
+        message += `   _Sin: ${item.removedIngredients.join(', ')}_\n`;
+      }
+      if (item.variableIngredients?.length > 0) {
+        message += `   _Con: ${item.variableIngredients
+          .map((v) => `${v.quantity}x ${v.name}`)
+          .join(', ')}_\n`;
+      }
     }
   });
 

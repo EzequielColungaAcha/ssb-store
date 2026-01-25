@@ -18,7 +18,7 @@ const CONFIG = {
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday
-    operatingDays: [6], // All days by default
+    operatingDays: [0, 6], // All days by default
   },
 };
 

@@ -7,8 +7,8 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: false,
-    message: 'Estamos en mantenimiento. Volvemos pronto!',
+    enabled: true,
+    message: 'No tenemos stock. Nos reencontramos el domingo 8 de febrero en la Noche de Verano en la Plaza San Martín!',
   },
   // Operating hours configuration
   operatingHours: {

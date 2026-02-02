@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ssb-pedidos-v3';
+const CACHE_NAME = 'ssb-pedidos-v1.1';
 
 // Static assets to cache (images and fonts only - not critical files)
 const STATIC_ASSETS = [

@@ -8,7 +8,7 @@ const CONFIG = {
   // Maintenance mode configuration
   maintenance: {
     enabled: false,
-    message: 'No tenemos stock. Nos reencontramos el domingo 8 de febrero en la Noche de Verano en la Plaza San Martín!',
+    message: '',
   },
   // Operating hours configuration
   operatingHours: {
@@ -18,7 +18,7 @@ const CONFIG = {
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday
-    operatingDays: [6, 0], // All days by default
+    operatingDays: [], // All days by default
   },
 };
 

@@ -29,6 +29,14 @@ const CONFIG = {
     enabled: false, // set to false to disable delivery option
     disabledMessage: 'Lo siento, por el momento no tenemos delivery disponible.',
   },
+  // Papas fritas category
+  papasFritas: {
+    enabled: true, // set to false to hide papas fritas
+  },
+  // Bebidas category
+  bebidas: {
+    enabled: false, // set to false to hide bebidas
+  },
 };
 
 // Default colors for each theme
@@ -561,6 +569,12 @@ async function loadProducts() {
     const response = await fetch(`products.json?t=${Date.now()}`);
     if (!response.ok) throw new Error('Failed to load products');
     products = await response.json();
+    // Filter out disabled categories
+    products = products.filter((p) => {
+      if (!CONFIG.papasFritas.enabled && p.category === 'papas fritas') return false;
+      if (!CONFIG.bebidas.enabled && p.category === 'bebidas') return false;
+      return true;
+    });
     renderCategories();
     renderCategoriesModal();
     renderProducts();

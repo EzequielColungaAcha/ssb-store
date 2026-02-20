@@ -780,6 +780,19 @@ body {
   color: var(--primary);
 }
 
+/* Delivery Disabled Notice */
+.delivery-disabled-notice {
+  background: rgba(249, 115, 22, 0.08);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 0.625rem 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.4;
+}
+
 /* Address Input */
 .name-input,
 .address-input {

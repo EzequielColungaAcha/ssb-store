@@ -18,7 +18,16 @@ const CONFIG = {
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday
-    operatingDays: [], // All days by default
+    operatingDays: [5], // All days by default
+  },
+  // Combos configuration
+  combos: {
+    enabled: false, // set to false to hide all combos
+  },
+  // Delivery configuration
+  delivery: {
+    enabled: false, // set to false to disable delivery option
+    disabledMessage: 'Lo siento, por el momento no tenemos delivery disponible.',
   },
 };
 
@@ -568,6 +577,10 @@ async function loadProducts() {
 
 // ===== LOAD COMBOS =====
 async function loadCombos() {
+  if (!CONFIG.combos.enabled) {
+    combos = [];
+    return;
+  }
   try {
     // Add cache-busting timestamp to prevent stale data
     const response = await fetch(`combos.json?t=${Date.now()}`);
@@ -2022,6 +2035,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderProducts();
   initEventListeners();
   updateCartCount();
+
+  // If delivery is disabled, hide the delivery option and show notice
+  if (!CONFIG.delivery.enabled) {
+    const deliveryToggle = document.querySelector('.delivery-toggle');
+    if (deliveryToggle) {
+      // Force pickup to be selected
+      const pickupRadio = document.querySelector('input[name="delivery"][value="pickup"]');
+      if (pickupRadio) pickupRadio.checked = true;
+
+      // Hide the delivery radio option
+      const deliveryLabel = document.querySelector('input[name="delivery"][value="delivery"]');
+      if (deliveryLabel && deliveryLabel.closest('.delivery-option')) {
+        deliveryLabel.closest('.delivery-option').style.display = 'none';
+      }
+
+      // Insert notice banner
+      const notice = document.createElement('div');
+      notice.className = 'delivery-disabled-notice';
+      notice.textContent = CONFIG.delivery.disabledMessage;
+      deliveryToggle.insertAdjacentElement('afterend', notice);
+    }
+    // Hide address input since delivery is not available
+    if (elements.addressInput) {
+      elements.addressInput.style.display = 'none';
+    }
+    updateCartSummary();
+  }
 
   // Check operating hours and update WhatsApp button state
   updateWhatsAppButtonState();

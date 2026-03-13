@@ -1691,7 +1691,9 @@ function updateCartSummary() {
 
   elements.subtotal.textContent = formatPrice(subtotal);
   elements.total.textContent = formatPrice(total);
-  elements.whatsappBtn.disabled = cart.length === 0;
+
+  const addressEmpty = isDelivery && !(elements.deliveryAddress?.value?.trim());
+  elements.whatsappBtn.disabled = cart.length === 0 || addressEmpty;
 }
 
 function updateCartCount() {
@@ -1754,6 +1756,8 @@ function sendToWhatsApp() {
   const isDelivery =
     document.querySelector('input[name="delivery"]:checked')?.value ===
     'delivery';
+
+  if (isDelivery && !(elements.deliveryAddress?.value?.trim())) return;
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -1858,9 +1862,10 @@ function initEventListeners() {
     });
   });
 
-  // Address input - save to localStorage
+  // Address input - save to localStorage and update button state
   elements.deliveryAddress.addEventListener('input', (e) => {
     localStorage.setItem('deliveryAddress', e.target.value);
+    updateCartSummary();
   });
 
   // Customer name input - save to localStorage

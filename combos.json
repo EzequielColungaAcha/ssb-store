@@ -87,6 +87,89 @@
     ]
   },
   {
+    "id": "06b4a07f-2381-44b6-b7a0-a85f00bff795",
+    "name": "Combo Americana Simple",
+    "description": "Americana (Pan de papa, paty, doble queso cheddar, lechuga, tomate, cebolla brunoise y salsa mil islas), Papas Fritas y Bebida a elección.",
+    "price_type": "fixed",
+    "fixed_price": 11500,
+    "slots": [
+      {
+        "id": "d0066e69-7486-417e-9a04-a1880109fd29",
+        "name": "Hamburguesa",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "c4e808ae-141c-4d5b-9099-7d7178eb4e2f",
+        "products": [
+          {
+            "id": "c4e808ae-141c-4d5b-9099-7d7178eb4e2f",
+            "name": "Americana Simple",
+            "price": 7000,
+            "ingredients": [
+              {
+                "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
+                "name": "Salsa Mil Islas"
+              },
+              {
+                "id": "ea444722-e696-4e55-9052-91bb85c211fd",
+                "name": "Tomate"
+              },
+              {
+                "id": "087b0600-8390-411e-9d12-3b707276c218",
+                "name": "Queso Cheddar"
+              },
+              {
+                "id": "c8b6d0c1-f19c-4ea3-8bea-26c54f8f0403",
+                "name": "Lechuga"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "2e9581c2-ed5b-44e4-b086-2055f17940aa",
+        "name": "Acompañamiento",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+        "products": [
+          {
+            "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+            "name": "Papas Fritas",
+            "price": 3000,
+            "ingredients": []
+          }
+        ]
+      },
+      {
+        "id": "c5db6c6a-0afc-4712-aeff-df2ef5e275c3",
+        "name": "Bebida",
+        "is_dynamic": true,
+        "quantity": 1,
+        "default_product_id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+        "products": [
+          {
+            "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+            "name": "Coca-Cola 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
+            "name": "Fanta 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
+            "name": "Sprite 600cc",
+            "price": 2500,
+            "ingredients": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "acb3511b-c3fe-4812-a825-101cd82c009d",
     "name": "Combo Americana Triple",
     "description": "Americana Triple (Pan de papa, triple paty, cuádruple queso cheddar, lechuga, tomate, cebolla brunoise y salsa mil islas), Papas Fritas y Bebida a elección.",
@@ -225,6 +308,81 @@
       },
       {
         "id": "9272df2f-26dc-4a1a-b419-0a0bd21f9997",
+        "name": "Bebida",
+        "is_dynamic": true,
+        "quantity": 1,
+        "default_product_id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+        "products": [
+          {
+            "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+            "name": "Coca-Cola 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
+            "name": "Fanta 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
+            "name": "Sprite 600cc",
+            "price": 2500,
+            "ingredients": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7b3aee02-1bed-448d-b40a-7e085748e10f",
+    "name": "Combo Bacon Jam Simple",
+    "description": "Bacon Jam (Pan de papa, paty, doble queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas), Papas Fritas y Bebida a elección.",
+    "price_type": "fixed",
+    "fixed_price": 12500,
+    "slots": [
+      {
+        "id": "76f51d97-4e6d-465b-af66-c5ce733468ef",
+        "name": "Hamburguesa",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "dd9e4239-970c-4424-a8e8-7280d014cfaa",
+        "products": [
+          {
+            "id": "dd9e4239-970c-4424-a8e8-7280d014cfaa",
+            "name": "Bacon Jam Simple",
+            "price": 8000,
+            "ingredients": [
+              {
+                "id": "087b0600-8390-411e-9d12-3b707276c218",
+                "name": "Queso Cheddar"
+              },
+              {
+                "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
+                "name": "Salsa Mil Islas"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "2b75e208-b842-40dc-ac17-88e4127cdb07",
+        "name": "Acompañamiento",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+        "products": [
+          {
+            "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+            "name": "Papas Fritas",
+            "price": 3000,
+            "ingredients": []
+          }
+        ]
+      },
+      {
+        "id": "bcca919f-7d50-4ab6-9e4e-1f932230abfe",
         "name": "Bebida",
         "is_dynamic": true,
         "quantity": 1,
@@ -465,6 +623,77 @@
     ]
   },
   {
+    "id": "4a70c38d-458f-4dd7-8f8e-1e3123ce067f",
+    "name": "Combo Clásica Simple",
+    "description": "Clásica (Pan de Papa, paty, doble queso cheddar), Papas Fritas y Bebida a elección.",
+    "price_type": "fixed",
+    "fixed_price": 10500,
+    "slots": [
+      {
+        "id": "fc49e5d9-9ded-4e1b-9d60-96f9094762ec",
+        "name": "Hamburguesa",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "fb0b9a01-1e7b-4b4e-aa1a-30cb2633f78f",
+        "products": [
+          {
+            "id": "fb0b9a01-1e7b-4b4e-aa1a-30cb2633f78f",
+            "name": "Clásica Simple",
+            "price": 6000,
+            "ingredients": [
+              {
+                "id": "087b0600-8390-411e-9d12-3b707276c218",
+                "name": "Queso Cheddar"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "660f313d-6daa-459f-9ba9-63bcd8285dc9",
+        "name": "Acompañamiento",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+        "products": [
+          {
+            "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+            "name": "Papas Fritas",
+            "price": 3000,
+            "ingredients": []
+          }
+        ]
+      },
+      {
+        "id": "1244dbb9-891b-4aea-95ab-7567d489f4ee",
+        "name": "Bebida",
+        "is_dynamic": true,
+        "quantity": 1,
+        "default_product_id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+        "products": [
+          {
+            "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+            "name": "Coca-Cola 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
+            "name": "Fanta 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
+            "name": "Sprite 600cc",
+            "price": 2500,
+            "ingredients": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "77a4c6e5-6075-4d2e-a726-2f5cc24ac3aa",
     "name": "Combo Clásica Triple",
     "description": "Clásica Triple (Pan de Papa, triple paty, cuádruple queso cheddar), Papas Fritas y Bebida a elección.",
@@ -607,6 +836,77 @@
     ]
   },
   {
+    "id": "b6a952a6-104c-421d-b4c9-ca8c9adb83c5",
+    "name": "Combo Oklahoma Simple",
+    "description": "Oklahoma (Pan de papa, paty, doble queso cheddar, cebolla grillada en conjunto con el paty), Papas Fritas y Bebida a elección.",
+    "price_type": "fixed",
+    "fixed_price": 11500,
+    "slots": [
+      {
+        "id": "d849f4be-4a58-4a5e-8350-6afb7dd1f381",
+        "name": "Hamburguesa",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "904cca32-1865-4c62-a36f-3bd3ab59978c",
+        "products": [
+          {
+            "id": "904cca32-1865-4c62-a36f-3bd3ab59978c",
+            "name": "Oklahoma Simple",
+            "price": 7000,
+            "ingredients": [
+              {
+                "id": "087b0600-8390-411e-9d12-3b707276c218",
+                "name": "Queso Cheddar"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "940fd19b-4bb8-42ea-b1ff-c39b05103a47",
+        "name": "Acompañamiento",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+        "products": [
+          {
+            "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+            "name": "Papas Fritas",
+            "price": 3000,
+            "ingredients": []
+          }
+        ]
+      },
+      {
+        "id": "8b4787de-308d-4b39-b16e-73463674f508",
+        "name": "Bebida",
+        "is_dynamic": true,
+        "quantity": 1,
+        "default_product_id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+        "products": [
+          {
+            "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+            "name": "Coca-Cola 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
+            "name": "Fanta 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
+            "name": "Sprite 600cc",
+            "price": 2500,
+            "ingredients": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "8d35a824-018d-490e-baf2-3d07ba2bb43b",
     "name": "Combo Oklahoma Triple",
     "description": "Oklahoma Triple (Pan de papa, triple paty, cuádruple queso cheddar, cebolla grillada en conjunto con el paty), Papas Fritas y Bebida a elección.",
@@ -687,7 +987,7 @@
       {
         "id": "3dd6012c-4f22-4cc5-9f79-48e5685d5b25",
         "name": "Hamburguesa",
-        "is_dynamic": true,
+        "is_dynamic": false,
         "quantity": 1,
         "default_product_id": "dbd5d8f4-4cde-4e02-94df-b09d93302f62",
         "products": [
@@ -729,6 +1029,81 @@
       },
       {
         "id": "c06e3597-0042-495e-bce5-4944f2799546",
+        "name": "Bebida",
+        "is_dynamic": true,
+        "quantity": 1,
+        "default_product_id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+        "products": [
+          {
+            "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
+            "name": "Coca-Cola 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
+            "name": "Fanta 600cc",
+            "price": 2500,
+            "ingredients": []
+          },
+          {
+            "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
+            "name": "Sprite 600cc",
+            "price": 2500,
+            "ingredients": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2c8da4d0-d3b3-44ef-9480-e4fad96df99a",
+    "name": "Combo Palta Simple",
+    "description": "Palta (Pan de papa, paty, doble queso cheddar, salsa de palta (palta, albahaca y ajo) y un huevo), Papas Fritas y Bebida a elección.",
+    "price_type": "fixed",
+    "fixed_price": 11500,
+    "slots": [
+      {
+        "id": "d2d43146-97f0-4067-8853-b7f8eaf57d74",
+        "name": "Hamburguesa",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "49590dc3-e0ed-4edf-a40f-15464dc5d541",
+        "products": [
+          {
+            "id": "49590dc3-e0ed-4edf-a40f-15464dc5d541",
+            "name": "Palta Simple",
+            "price": 7000,
+            "ingredients": [
+              {
+                "id": "087b0600-8390-411e-9d12-3b707276c218",
+                "name": "Queso Cheddar"
+              },
+              {
+                "id": "ca33127c-12ba-4399-9e89-02eab2327282",
+                "name": "Huevo"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3cf7a3f8-d25f-4e2a-868c-31ef7bcde680",
+        "name": "Acompañamiento",
+        "is_dynamic": false,
+        "quantity": 1,
+        "default_product_id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+        "products": [
+          {
+            "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
+            "name": "Papas Fritas",
+            "price": 3000,
+            "ingredients": []
+          }
+        ]
+      },
+      {
+        "id": "d436b942-bab1-4818-936e-6c8c33af20d9",
         "name": "Bebida",
         "is_dynamic": true,
         "quantity": 1,

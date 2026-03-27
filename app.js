@@ -22,12 +22,12 @@ const CONFIG = {
   },
   // Combos configuration
   combos: {
-    enabled: true, // set to false to hide all combos
+    enabled: false, // set to false to hide all combos
   },
   // Delivery configuration
   delivery: {
-    enabled: true, // set to false to disable delivery option
-    disabledMessage: 'Lo siento, por el momento no tenemos delivery disponible.',
+    enabled: false, // set to false to disable delivery option
+    disabledMessage: 'Lo siento, hoy no tenemos delivery disponible.',
   },
   // Papas fritas category
   papasFritas: {
@@ -35,7 +35,7 @@ const CONFIG = {
   },
   // Bebidas category
   bebidas: {
-    enabled: true, // set to false to hide bebidas
+    enabled: false, // set to false to hide bebidas
   },
 };
 

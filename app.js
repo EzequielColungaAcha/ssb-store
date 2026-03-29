@@ -18,7 +18,7 @@ const CONFIG = {
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday
-    operatingDays: [5, 6, 0, 1], // All days by default
+    operatingDays: [5, 6, 0], // All days by default
   },
   // Combos configuration
   combos: {
@@ -26,7 +26,7 @@ const CONFIG = {
   },
   // Delivery configuration
   delivery: {
-    enabled: false, // set to false to disable delivery option
+    enabled: true, // set to false to disable delivery option
     disabledMessage: 'Lo siento, hoy no tenemos delivery disponible.',
   },
   // Papas fritas category

@@ -7,7 +7,7 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: true,
+    enabled: false,
     message: 'Hoy viernes no abro debido a la falta de insumos. Disculpen las molestias y gracias por acceder.',
   },
   // Operating hours configuration
@@ -22,7 +22,7 @@ const CONFIG = {
   },
   // Combos configuration
   combos: {
-    enabled: false, // set to false to hide all combos
+    enabled: true, // set to false to hide all combos
   },
   // Delivery configuration
   delivery: {
@@ -35,7 +35,7 @@ const CONFIG = {
   },
   // Bebidas category
   bebidas: {
-    enabled: false, // set to false to hide bebidas
+    enabled: true, // set to false to hide bebidas
   },
 };
 

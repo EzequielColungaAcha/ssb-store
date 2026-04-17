@@ -7,7 +7,7 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: true,
+    enabled: false,
     message: 'Nos vemos nuevamente el viernes 17. Gracias!',
   },
   // Operating hours configuration
@@ -22,7 +22,7 @@ const CONFIG = {
   },
   // Combos configuration
   combos: {
-    enabled: true, // set to false to hide all combos
+    enabled: false, // set to false to hide all combos
   },
   // Delivery configuration
   delivery: {
@@ -35,7 +35,7 @@ const CONFIG = {
   },
   // Bebidas category
   bebidas: {
-    enabled: true, // set to false to hide bebidas
+    enabled: false, // set to false to hide bebidas
   },
 };
 

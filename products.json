@@ -209,6 +209,23 @@
     ]
   },
   {
+    "id": "2366deaf-4299-43da-a493-3a49d061c7c2",
+    "name": "Le'Blu",
+    "description": "Pan de papa, doble paty, triple queso cheddar, queso azul, cebolla grillada en conjunto con el paty.",
+    "price": 9500,
+    "category": "hamburguesas",
+    "ingredients": [
+      {
+        "id": "087b0600-8390-411e-9d12-3b707276c218",
+        "name": "Queso Cheddar"
+      },
+      {
+        "id": "aeb0076a-3d1b-47ae-923c-ed5b8869f93e",
+        "name": "Queso Azul"
+      }
+    ]
+  },
+  {
     "id": "ce1acd67-dba1-47d3-b329-6d085f1d22f7",
     "name": "Oklahoma",
     "description": "Pan de papa, doble paty, triple queso cheddar, cebolla grillada en conjunto con el paty.",

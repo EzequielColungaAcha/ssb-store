@@ -7,7 +7,7 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: true,
+    enabled: false,
     message: 'Cerrado hoy viernes 15/05. Gracias!',
   },
   // Operating hours configuration
@@ -26,7 +26,7 @@ const CONFIG = {
   },
   // Delivery configuration
   delivery: {
-    enabled: false, // set to false to disable delivery option
+    enabled: true, // set to false to disable delivery option
     disabledMessage: 'Lo siento, hoy no tenemos delivery disponible.',
   },
   // Papas fritas category

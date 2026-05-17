@@ -26,7 +26,7 @@ const CONFIG = {
   },
   // Delivery configuration
   delivery: {
-    enabled: true, // set to false to disable delivery option
+    enabled: false, // set to false to disable delivery option
     disabledMessage: 'Lo siento, hoy no tenemos delivery disponible.',
   },
   // Papas fritas category

@@ -14,7 +14,7 @@ const CONFIG = {
   operatingHours: {
     enabled: true,
     startHour: 19, // 8 PM
-    endHour: 24, // Midnight (use 24 for midnight, or 0 for next day)
+    endHour: 23, // Midnight (use 24 for midnight, or 0 for next day)
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday

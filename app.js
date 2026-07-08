@@ -13,12 +13,12 @@ const CONFIG = {
   // Operating hours configuration
   operatingHours: {
     enabled: true,
-    startHour: 20, // 8 PM
+    startHour: 19, // 8 PM
     endHour: 24, // Midnight (use 24 for midnight, or 0 for next day)
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday
-    operatingDays: [5, 6, 0], // All days by default
+    operatingDays: [3, 4, 5, 6, 0], // All days by default
   },
   // Combos configuration
   combos: {

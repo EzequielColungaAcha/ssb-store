@@ -7,7 +7,7 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: true,
+    enabled: false,
     message: 'Cerrado sábado y domingo. Gracias!',
   },
   // Operating hours configuration
@@ -18,7 +18,7 @@ const CONFIG = {
     timezone: 'America/Argentina/Buenos_Aires',
     // Days of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     // Example: [4, 5, 6] = Thursday, Friday, Saturday
-    operatingDays: [3, 4, 5, 6, 0], // All days by default
+    operatingDays: [5, 6, 0], // All days by default
   },
   // Combos configuration
   combos: {

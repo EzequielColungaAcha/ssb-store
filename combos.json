@@ -4,7 +4,7 @@
     "name": "Combo Americana",
     "description": "Americana (Pan de papa, doble paty, triple queso cheddar, lechuga, tomate, cebolla brunoise y salsa mil islas), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 13500,
+    "fixed_price": 16500,
     "slots": [
       {
         "id": "fdc56445-2677-47d6-8177-82825c79b54e",
@@ -16,27 +16,27 @@
           {
             "id": "a829b0e3-7dc3-4717-b639-0891dc667e0b",
             "name": "Americana",
-            "price": 9000,
+            "price": 10000,
             "ingredients": [
               {
-                "id": "ea444722-e696-4e55-9052-91bb85c211fd",
-                "name": "Tomate"
+                "id": "36a898c0-1470-4ec5-b87a-6ce62ae0056b",
+                "name": "Cebolla"
               },
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
                 "name": "Queso Cheddar"
               },
               {
-                "id": "36a898c0-1470-4ec5-b87a-6ce62ae0056b",
-                "name": "Cebolla"
-              },
-              {
-                "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
-                "name": "Salsa Mil Islas"
+                "id": "ea444722-e696-4e55-9052-91bb85c211fd",
+                "name": "Tomate"
               },
               {
                 "id": "c8b6d0c1-f19c-4ea3-8bea-26c54f8f0403",
                 "name": "Lechuga"
+              },
+              {
+                "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
+                "name": "Salsa Mil Islas"
               }
             ]
           }
@@ -52,7 +52,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -67,19 +67,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -91,7 +91,7 @@
     "name": "Combo Americana Triple",
     "description": "Americana Triple (Pan de papa, triple paty, cuádruple queso cheddar, lechuga, tomate, cebolla brunoise y salsa mil islas), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 16000,
+    "fixed_price": 19000,
     "slots": [
       {
         "id": "8a2b6d36-00cb-473c-be74-9c48902d651d",
@@ -103,7 +103,7 @@
           {
             "id": "041c5b59-0fb2-480e-b6b1-8dd17d97d1f3",
             "name": "Americana Triple",
-            "price": 11500,
+            "price": 12500,
             "ingredients": [
               {
                 "id": "36a898c0-1470-4ec5-b87a-6ce62ae0056b",
@@ -139,7 +139,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -154,19 +154,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -178,7 +178,7 @@
     "name": "Combo Bacon Jam",
     "description": "Bacon Jam (Pan de papa, doble paty, triple queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 14500,
+    "fixed_price": 17500,
     "slots": [
       {
         "id": "b3876a6f-5407-4fa3-a481-fbdff7a7a5d9",
@@ -190,19 +190,19 @@
           {
             "id": "f6c5dbdc-a390-45f7-90c7-1d89fbed8703",
             "name": "Bacon Jam",
-            "price": 10000,
+            "price": 11000,
             "ingredients": [
               {
                 "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
                 "name": "Salsa Mil Islas"
               },
               {
-                "id": "615ee179-649f-4de5-823b-0c605faf75af",
-                "name": "Topping: Bacon Jam"
-              },
-              {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
                 "name": "Queso Cheddar"
+              },
+              {
+                "id": "615ee179-649f-4de5-823b-0c605faf75af",
+                "name": "Topping: Bacon Jam"
               }
             ]
           }
@@ -218,7 +218,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -233,19 +233,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -257,7 +257,7 @@
     "name": "Combo Bacon Jam Simple",
     "description": "Bacon Jam Simple (Pan de papa, un único paty, doble queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 12500,
+    "fixed_price": 15500,
     "slots": [
       {
         "id": "9a3bf39b-fc53-4aae-b2ef-592f24c869ff",
@@ -269,7 +269,7 @@
           {
             "id": "dd9e4239-970c-4424-a8e8-7280d014cfaa",
             "name": "Bacon Jam Simple",
-            "price": 8000,
+            "price": 9000,
             "ingredients": [
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
@@ -293,7 +293,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -308,19 +308,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -332,7 +332,7 @@
     "name": "Combo Bacon Jam Triple",
     "description": "Bacon Jam Triple (Pan de papa, triple paty, cuádruple queso cheddar, bacon jam (panceta ahumada caramelizada con miel y cebolla) y salsa mil islas), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 17000,
+    "fixed_price": 20000,
     "slots": [
       {
         "id": "86fff0b2-b0d2-42fb-8385-fa1ec3a5e006",
@@ -344,7 +344,7 @@
           {
             "id": "16df83a7-c59e-44dc-8952-8d1c7924a209",
             "name": "Bacon Jam Triple",
-            "price": 12500,
+            "price": 13500,
             "ingredients": [
               {
                 "id": "53cf66ac-5fe7-404f-b4a5-58e0d6124a36",
@@ -368,7 +368,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -383,19 +383,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -407,7 +407,7 @@
     "name": "Combo Chester",
     "description": "Pan de molde, un paty, doble queso cheddar, Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 10500,
+    "fixed_price": 13500,
     "slots": [
       {
         "id": "06e8127c-c2a5-4f6b-9feb-f5ca1a349a57",
@@ -419,7 +419,7 @@
           {
             "id": "27f43256-62f6-4a1b-a8fa-e4f266790fd6",
             "name": "Chester",
-            "price": 6000,
+            "price": 7000,
             "ingredients": []
           }
         ]
@@ -434,7 +434,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -449,19 +449,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -473,7 +473,7 @@
     "name": "Combo Clásica",
     "description": "Clásica (Pan de Papa, doble paty, triple queso cheddar), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 12500,
+    "fixed_price": 15500,
     "slots": [
       {
         "id": "17f0e5e9-d326-4f09-a621-5b231ac369e2",
@@ -485,7 +485,7 @@
           {
             "id": "a002d068-e9cb-4d1d-9331-abc4a3e2b865",
             "name": "Clásica",
-            "price": 8000,
+            "price": 9000,
             "ingredients": [
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
@@ -505,7 +505,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -520,19 +520,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -544,7 +544,7 @@
     "name": "Combo Clásica Triple",
     "description": "Clásica Triple (Pan de Papa, triple paty, cuádruple queso cheddar), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 15000,
+    "fixed_price": 18000,
     "slots": [
       {
         "id": "6f8dd4b0-a2bc-41e5-aac3-a1f696d9ea6e",
@@ -556,7 +556,7 @@
           {
             "id": "86629828-82bf-4ce1-803f-e315f4bcb3ab",
             "name": "Clásica Triple",
-            "price": 10500,
+            "price": 11500,
             "ingredients": [
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
@@ -576,7 +576,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -591,19 +591,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -615,7 +615,7 @@
     "name": "Combo Le'Blu",
     "description": "Oklahoma (Pan de papa, doble paty, triple queso cheddar, queso azul, cebolla grillada en conjunto con el paty), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 14000,
+    "fixed_price": 17000,
     "slots": [
       {
         "id": "d4d3fd89-32dc-4fc1-b8f6-dae3c6d733ec",
@@ -627,7 +627,7 @@
           {
             "id": "2366deaf-4299-43da-a493-3a49d061c7c2",
             "name": "Le'Blu",
-            "price": 9500,
+            "price": 10500,
             "ingredients": [
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
@@ -651,7 +651,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -666,19 +666,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -690,7 +690,7 @@
     "name": "Combo Oklahoma",
     "description": "Oklahoma (Pan de papa, doble paty, triple queso cheddar, cebolla grillada en conjunto con el paty), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 13500,
+    "fixed_price": 16500,
     "slots": [
       {
         "id": "dfe41f4d-9fd5-41b8-876a-2125bb573639",
@@ -702,7 +702,7 @@
           {
             "id": "ce1acd67-dba1-47d3-b329-6d085f1d22f7",
             "name": "Oklahoma",
-            "price": 9000,
+            "price": 10000,
             "ingredients": [
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
@@ -722,7 +722,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -737,19 +737,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -761,7 +761,7 @@
     "name": "Combo Oklahoma Triple",
     "description": "Oklahoma Triple (Pan de papa, triple paty, cuádruple queso cheddar, cebolla grillada en conjunto con el paty), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 16000,
+    "fixed_price": 19000,
     "slots": [
       {
         "id": "c1d6d9e0-9fa8-45f4-8209-8ec16fa4e4fe",
@@ -773,7 +773,7 @@
           {
             "id": "303177b3-7242-4e17-abad-4f2b47c3dac1",
             "name": "Oklahoma Triple",
-            "price": 11500,
+            "price": 12500,
             "ingredients": [
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
@@ -793,7 +793,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -808,19 +808,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -832,7 +832,7 @@
     "name": "Combo Palta",
     "description": "Palta (Pan de papa, doble paty, triple queso cheddar, salsa de palta (palta, albahaca y ajo) y un huevo), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 13500,
+    "fixed_price": 16500,
     "slots": [
       {
         "id": "3dd6012c-4f22-4cc5-9f79-48e5685d5b25",
@@ -844,15 +844,15 @@
           {
             "id": "dbd5d8f4-4cde-4e02-94df-b09d93302f62",
             "name": "Palta",
-            "price": 9000,
+            "price": 10500,
             "ingredients": [
-              {
-                "id": "bb1df0b3-8b6c-4fd4-b539-ef214fcb214d",
-                "name": "Topping: Palta"
-              },
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
                 "name": "Queso Cheddar"
+              },
+              {
+                "id": "bb1df0b3-8b6c-4fd4-b539-ef214fcb214d",
+                "name": "Topping: Palta"
               },
               {
                 "id": "ca33127c-12ba-4399-9e89-02eab2327282",
@@ -872,7 +872,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -887,19 +887,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -911,7 +911,7 @@
     "name": "Combo Palta Simple",
     "description": "Palta (Pan de papa, un único paty, doble queso cheddar, salsa de palta (palta, albahaca y ajo) y un huevo), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 11500,
+    "fixed_price": 14500,
     "slots": [
       {
         "id": "9da1632e-09f5-4ada-8a9a-d073a7eaaf95",
@@ -923,7 +923,7 @@
           {
             "id": "49590dc3-e0ed-4edf-a40f-15464dc5d541",
             "name": "Palta Simple",
-            "price": 7000,
+            "price": 8500,
             "ingredients": [
               {
                 "id": "087b0600-8390-411e-9d12-3b707276c218",
@@ -947,7 +947,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -962,19 +962,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]
@@ -986,7 +986,7 @@
     "name": "Combo Palta Triple",
     "description": "Palta Triple (Pan de papa, triple paty, cuádruple queso cheddar, salsa de palta (palta, albahaca y ajo) y un huevo), Papas Fritas y Bebida a elección.",
     "price_type": "fixed",
-    "fixed_price": 16000,
+    "fixed_price": 19000,
     "slots": [
       {
         "id": "c832648b-36b8-465c-8238-e4107e574e51",
@@ -998,7 +998,7 @@
           {
             "id": "eb61fa47-6c82-446e-808a-5551d50b1ed9",
             "name": "Palta Triple",
-            "price": 11500,
+            "price": 13000,
             "ingredients": [
               {
                 "id": "ca33127c-12ba-4399-9e89-02eab2327282",
@@ -1022,7 +1022,7 @@
           {
             "id": "0daec5fb-4458-4cf8-b920-28c04a6067df",
             "name": "Papas Fritas",
-            "price": 3000,
+            "price": 4000,
             "ingredients": []
           }
         ]
@@ -1037,19 +1037,19 @@
           {
             "id": "73fe3ac5-efd2-4c38-bbc0-7f265a2ee4ee",
             "name": "Coca-Cola 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "b2882f44-70da-47f1-a98d-fad839ef5252",
             "name": "Fanta 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           },
           {
             "id": "4f825915-1efb-4831-9e26-186de6cf24fa",
             "name": "Sprite 600cc",
-            "price": 2500,
+            "price": 3500,
             "ingredients": []
           }
         ]

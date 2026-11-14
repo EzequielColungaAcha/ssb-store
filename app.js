@@ -7,8 +7,8 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: false,
-    message: 'Hoy viernes cerrado. Mañana nuevos productos! Gracias!',
+    enabled: true,
+    message: 'Este finde cerrado. Gracias!',
   },
   // Operating hours configuration
   operatingHours: {

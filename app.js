@@ -8,7 +8,7 @@ const CONFIG = {
   // Maintenance mode configuration
   maintenance: {
     enabled: true,
-    message: 'Este finde cerrado. Gracias!',
+    message: 'Hoy viernes 20/11, cerrado. Gracias!',
   },
   // Operating hours configuration
   operatingHours: {

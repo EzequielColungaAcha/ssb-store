@@ -7,7 +7,7 @@ const CONFIG = {
   currency: '$',
   // Maintenance mode configuration
   maintenance: {
-    enabled: true,
+    enabled: false,
     message: 'Hoy viernes 20/11, cerrado. Gracias!',
   },
   // Operating hours configuration
@@ -22,7 +22,7 @@ const CONFIG = {
   },
   // Combos configuration
   combos: {
-    enabled: true, // set to false to hide all combos
+    enabled: false, // set to false to hide all combos
   },
   // Delivery configuration
   delivery: {
